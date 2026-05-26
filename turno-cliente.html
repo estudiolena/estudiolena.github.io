@@ -515,7 +515,9 @@ async function confirmar(){
     tipo:sedeElegida==='llamada'?'llamada':'presencial'
   });
   turnoCreado=res?.[0];
-
+turnoCreado=res?.[0];
+  if(turnoCreado){fetch(`https://iboydjjeaeeayxjvaykr.supabase.co/functions/v1/notificar-turno`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({record:turnoCreado})});}
+  const [y,m,d]=fechaSel.split('-'); const f=new Date(+y,+m-1,+d);
   const [y,m,d]=fechaSel.split('-'); const f=new Date(+y,+m-1,+d);
   const fl=f.toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long'});
   const sedeNombre=sedeElegida?SEDES[sedeElegida].nombre:'—';
