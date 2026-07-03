@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Dirección — Estudio Lena & Asociados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#020308; --bg2:#05060f; --bg3:#080a18; --navy:#0b0f28; --navy2:#0f1535;
+  --blue2:#1e3380; --gold:#c9a84c; --gold2:#ddb95e; --gold3:#f0d080;
+  --white:#f4f1ea; --white2:#e0dccf; --gray:#7a82a3;
+  --border:rgba(201,168,76,0.14); --border2:rgba(201,168,76,0.26);
+  --ok:#5cae78; --warn:#e0b850; --cold:#e06a48; --hot:#e0563f;
+}
+body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--white);min-height:100vh}
+::selection{background:rgba(201,168,76,.3);color:#fff}
+.serif{font-family:'Cormorant Garamond',serif}
+.tag{display:inline-flex;align-items:center;gap:.7rem;font-size:.64rem;font-weight:400;letter-spacing:.26em;text-transform:uppercase;color:var(--gold2)}
+.tag::before{content:'';width:1.6rem;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+
+#login{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;background:var(--bg);overflow:hidden}
+#login .lph{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;filter:brightness(.16) saturate(.4) contrast(1.05)}
+#login .lgr{position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 50% 40%,rgba(11,15,40,.7),rgba(2,3,8,.96))}
+#login .lgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.025) 1px,transparent 1px);background-size:80px 80px}
+.lbox{position:relative;z-index:2;width:380px;max-width:90vw;text-align:center;padding:2.6rem 2.4rem;border:1px solid var(--border2);background:linear-gradient(160deg,rgba(11,15,40,.85),rgba(5,6,15,.92));backdrop-filter:blur(8px)}
+.lbox img{height:54px;filter:brightness(0) saturate(100%) invert(75%) sepia(60%) saturate(500%) hue-rotate(5deg) brightness(110%);margin-bottom:.4rem}
+.lbox .ltitle{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--white);margin-bottom:.3rem}
+.lbox .lsub{font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gray);margin-bottom:2rem}
+.lbox label{display:block;text-align:left;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold2);margin:0 0 .5rem}
+.lbox input{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--white);padding:.85rem 1rem;font-family:inherit;font-size:.92rem;margin-bottom:1.2rem;transition:border-color .2s}
+.lbox input:focus{outline:none;border-color:var(--gold)}
+.lbox button{width:100%;background:var(--gold);color:var(--bg);border:none;padding:1rem;font-family:inherit;font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.lbox button:hover{background:var(--gold2)}
+.lbox button:disabled{opacity:.5;cursor:wait}
+.lerr{font-size:.78rem;color:#e88a6f;margin-top:1rem;min-height:1rem}
+
+#app{display:none;min-height:100vh}
+#app.on{display:flex}
+aside{width:256px;flex-shrink:0;background:linear-gradient(180deg,var(--bg2),var(--bg));border-right:1px solid var(--border);min-height:100vh;display:flex;flex-direction:column;padding:1.8rem 0;position:sticky;top:0;height:100vh}
+.brand{padding:0 1.6rem 1.6rem;border-bottom:1px solid var(--border);margin-bottom:1.4rem}
+.brand img{height:42px;width:auto;object-fit:contain;filter:brightness(0) saturate(100%) invert(75%) sepia(60%) saturate(500%) hue-rotate(5deg) brightness(110%)}
+.brand .sub{font-size:.54rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gray);margin-top:.7rem}
+.pb-card{margin:0 1.2rem 1.6rem;padding:1rem;border:1px solid var(--border);background:linear-gradient(135deg,var(--navy),var(--bg2));display:flex;align-items:center;gap:.85rem;position:relative}
+.pb-mono{width:44px;height:44px;flex-shrink:0;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--gold);background:var(--bg)}
+.pb-card .nm{font-size:.86rem;font-weight:500;color:var(--white);line-height:1.2}
+.pb-card .rl{font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold2);margin-top:3px}
+.logout{position:absolute;top:.5rem;right:.5rem;background:none;border:none;color:var(--gray);cursor:pointer;padding:.3rem;transition:color .2s}
+.logout:hover{color:var(--cold)}
+.logout svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.6}
+nav.side{display:flex;flex-direction:column;gap:2px;padding:0 .8rem;flex:1;overflow-y:auto}
+.nav-i{display:flex;align-items:center;gap:.85rem;padding:.8rem 1rem;font-size:.88rem;font-weight:300;letter-spacing:.03em;color:rgba(244,241,234,.55);background:none;border:none;border-left:2px solid transparent;cursor:pointer;text-align:left;transition:all .2s;font-family:inherit;position:relative}
+.nav-i svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.4;flex-shrink:0}
+.nav-i:hover{color:var(--gold2);background:rgba(201,168,76,.04)}
+.nav-i.on{color:var(--gold3);border-left-color:var(--gold);background:rgba(201,168,76,.07)}
+.nav-i .badge{margin-left:auto;background:var(--hot);color:#fff;font-size:.6rem;font-weight:600;min-width:18px;height:18px;border-radius:100px;display:flex;align-items:center;justify-content:center;padding:0 5px}
+.side-foot{padding:1rem 1.2rem 0;border-top:1px solid var(--border);margin-top:1rem;display:flex;flex-direction:column;gap:6px}
+.ext{display:flex;align-items:center;gap:.6rem;font-size:.72rem;letter-spacing:.03em;color:rgba(244,241,234,.45);text-decoration:none;padding:.5rem .6rem;transition:color .2s}
+.ext svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.5}
+.ext:hover{color:var(--gold2)}
+
+main{flex:1;min-width:0;min-height:100vh;position:relative}
+.topband{position:relative;height:150px;overflow:hidden;border-bottom:1px solid var(--border);display:flex;align-items:flex-end}
+.topband .ph{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1920&q=80') center 30%/cover no-repeat;filter:brightness(.2) saturate(.4) contrast(1.05)}
+.topband .gr{position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,3,8,.95) 0%,rgba(11,15,40,.55) 55%,rgba(2,3,8,.4) 100%)}
+.topband .grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:70px 70px}
+.topband .inner{position:relative;z-index:2;padding:0 3vw 1.6rem}
+.topband h1{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;line-height:1;color:var(--white)}
+.topband h1 em{font-style:italic;color:var(--gold2)}
+.topband .date{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,241,234,.5);margin-top:.5rem}
+.topband .inner{display:flex;align-items:flex-end;justify-content:space-between;gap:1.2rem;flex-wrap:wrap;width:100%}
+.gsearch-wrap{position:relative;width:340px;max-width:100%}
+.gsearch-box{display:flex;align-items:center;gap:.6rem;background:rgba(2,3,8,.72);border:1px solid var(--border2);backdrop-filter:blur(6px);padding:.6rem .85rem}
+.gsearch-box:focus-within{border-color:var(--gold)}
+.gsearch-box>svg{width:16px;height:16px;stroke:var(--gold2);fill:none;stroke-width:1.6;flex-shrink:0}
+.gsearch-box input{flex:1;background:none;border:none;color:var(--white);font-family:inherit;font-size:.86rem;min-width:0}
+.gsearch-box input:focus{outline:none}
+.gsearch-box input::placeholder{color:var(--gray)}
+#help-btn{flex-shrink:0;width:24px;height:24px;border-radius:50%;border:1px solid var(--border2);background:none;color:var(--gold2);font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+#help-btn:hover{border-color:var(--gold);color:var(--gold3);background:rgba(201,168,76,.1)}
+.gsearch-res{position:absolute;top:calc(100% + 6px);left:0;right:0;background:linear-gradient(180deg,var(--bg2),var(--bg));border:1px solid var(--border2);max-height:60vh;overflow-y:auto;z-index:70;display:none;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+.gsearch-res.on{display:block}
+.gs-cat{font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold2);padding:.7rem .9rem .3rem}
+.gs-item{padding:.6rem .9rem;cursor:pointer;border-top:1px solid var(--border);transition:background .15s;display:flex;flex-direction:column;gap:2px}
+.gs-item:hover{background:rgba(201,168,76,.06)}
+.gs-item .gs-line{display:flex;align-items:center;gap:.5rem;font-size:.9rem;color:var(--white)}
+.gs-item .gs-line svg{width:14px;height:14px;stroke:var(--gold2);fill:none;stroke-width:1.5;flex-shrink:0}
+.gs-item .gs-sub{font-size:.66rem;color:var(--gray);margin-left:auto}
+.gs-item b{font-size:.86rem;color:var(--gold3);font-weight:500}
+.gs-item .gs-desc{font-size:.72rem;color:var(--gray);line-height:1.4}
+.gs-empty{padding:1rem .9rem;font-size:.8rem;color:var(--gray);font-style:italic}
+
+.help-blk{margin-bottom:1.5rem}
+.help-blk .hb-t{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold2);margin-bottom:.7rem}
+.help-i{padding:.75rem .9rem;border:1px solid var(--border);border-bottom:none;cursor:pointer;transition:background .15s}
+.help-i:last-child{border-bottom:1px solid var(--border)}
+.help-i:hover{background:rgba(201,168,76,.05)}
+.help-i .hi-t{font-size:.92rem;color:var(--white);display:flex;align-items:center;gap:.5rem}
+.help-i .hi-t svg{width:15px;height:15px;stroke:var(--gold2);fill:none;stroke-width:1.5}
+.help-i .hi-d{font-size:.76rem;color:var(--gray);line-height:1.5;margin-top:4px}
+.help-intro{font-size:.86rem;color:var(--white2);line-height:1.6;font-weight:300;margin-bottom:1.6rem}
+
+.section{padding:2.4rem 3vw 4rem;display:none}
+.section.on{display:block}
+.shead{margin-bottom:1.8rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
+.shead h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;margin-top:.5rem}
+.shead h2 em{font-style:italic;color:var(--gold2)}
+.shead .sd{font-size:.84rem;color:rgba(244,241,234,.5);font-weight:300;margin-top:.7rem;max-width:560px;line-height:1.7}
+.btn-add{display:inline-flex;align-items:center;gap:.5rem;background:var(--gold);color:var(--bg);border:none;padding:.7rem 1.2rem;font-family:inherit;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s;flex-shrink:0;align-self:center}
+.btn-add:hover{background:var(--gold2)}
+.btn-add svg{width:15px;height:15px;stroke:var(--bg);fill:none;stroke-width:2}
+.btn-tg{display:inline-flex;align-items:center;gap:.5rem;background:none;border:1px solid var(--border2);color:var(--gold2);padding:.55rem 1rem;font-family:inherit;font-size:.66rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.btn-tg:hover{border-color:var(--gold);color:var(--gold3);background:rgba(201,168,76,.05)}
+.btn-tg svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.6}
+
+.today{border:1px solid var(--border2);background:linear-gradient(135deg,var(--navy),var(--bg2));padding:1.9rem;margin-bottom:2.4rem;position:relative;overflow:hidden}
+.today::after{content:'';position:absolute;top:-40%;right:-10%;width:340px;height:340px;background:radial-gradient(circle,rgba(26,45,110,.25),transparent 70%);pointer-events:none}
+.today .th{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;position:relative;z-index:1;gap:1rem;flex-wrap:wrap}
+.today .th .t{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400}
+.today .th .t em{font-style:italic;color:var(--gold2)}
+.today .th .rgt{display:flex;align-items:center;gap:1rem}
+.today .th .dd{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gray)}
+.today-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.8rem;position:relative;z-index:1}
+.tcol h4{font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold2);margin-bottom:.9rem;display:flex;align-items:center;gap:.5rem}
+.tcol h4 svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.5}
+.tlist{display:flex;flex-direction:column;gap:.5rem}
+.titem{display:flex;align-items:flex-start;gap:.7rem;font-size:.88rem;color:var(--white2);font-weight:300;line-height:1.45;padding:.6rem .8rem;background:rgba(255,255,255,.022);border-left:2px solid var(--border)}
+.titem.warn{border-left-color:var(--cold)} .titem.gold{border-left-color:var(--gold)}
+.titem .tk{font-size:.64rem;color:var(--gray);letter-spacing:.05em;margin-left:auto;white-space:nowrap}
+.titem.done{opacity:.4;text-decoration:line-through}
+.titem .ck{width:16px;height:16px;border:1px solid var(--border2);flex-shrink:0;cursor:pointer;margin-top:2px;display:flex;align-items:center;justify-content:center}
+.titem.done .ck{background:var(--gold);border-color:var(--gold)}
+.titem .ck svg{width:11px;height:11px;stroke:var(--bg);fill:none;stroke-width:2.5;opacity:0}
+.titem.done .ck svg{opacity:1}
+.tempty{font-size:.8rem;color:var(--gray);font-style:italic;padding:.5rem .8rem}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:2.4rem}
+.kpi{background:var(--bg);padding:1.5rem 1.4rem}
+.kpi .v{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:600;line-height:1;color:var(--gold2)}
+.kpi .l{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,241,234,.5);margin-top:.5rem}
+.kpi.alert .v{color:#e8826a}
+.kpi.alert{background:linear-gradient(135deg,rgba(224,106,72,.08),var(--bg))}
+
+.block-h{display:flex;align-items:baseline;gap:1rem;margin:2.2rem 0 1.1rem}
+.block-h .t{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400}
+.block-h .c{font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gray)}
+.block-h .line{flex:1;height:1px;background:var(--border)}
+
+.srcgrid{display:flex;gap:1px;background:var(--border);border:1px solid var(--border);flex-wrap:wrap;margin-bottom:1rem}
+.srccell{background:var(--bg2);padding:1.1rem 1.4rem;flex:1;min-width:140px}
+.srccell .sn{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold2)}
+.srccell .sv{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:600;color:var(--white);margin-top:.3rem}
+.srccell .sx{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gray)}
+
+.cards{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border)}
+.exp{display:grid;grid-template-columns:1.5fr 1.3fr 1fr 150px 90px;align-items:center;gap:1rem;background:var(--bg2);padding:1.05rem 1.3rem;cursor:pointer;transition:background .15s}
+.exp:hover{background:var(--navy)}
+.exp .nm{font-size:.96rem;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.exp .meta{font-size:.64rem;letter-spacing:.05em;color:var(--gray);margin-top:4px;text-transform:uppercase}
+.chip{display:inline-block;font-size:.7rem;letter-spacing:.03em;padding:3px 10px;border:1px solid var(--border2);color:var(--gold2);background:rgba(201,168,76,.06);white-space:nowrap}
+.chip.empty{color:var(--gray);border-color:var(--border);background:none;font-style:italic}
+.chip.src{color:var(--white2);border-color:rgba(120,130,170,.3);background:rgba(30,51,128,.12)}
+.who{display:flex;align-items:center;gap:.55rem;font-size:.82rem;color:var(--white2)}
+.who .av{width:26px;height:26px;flex-shrink:0;border-radius:50%;background:linear-gradient(135deg,var(--navy2),var(--bg2));border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:500;color:var(--gold2)}
+.who.none{color:#dd9456} .who.none .av{border-color:rgba(221,148,86,.5);color:#dd9456}
+.heat{display:flex;align-items:center;gap:.6rem}
+.track{flex:1;height:5px;background:#0c1424;border-radius:100px;overflow:hidden}
+.fill{height:100%}
+.tier-ok .fill{background:var(--ok)} .tier-warn .fill{background:var(--warn)} .tier-cold .fill{background:var(--cold)}
+.days{justify-self:end;text-align:right}
+.days .n{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;line-height:1}
+.days.ok .n{color:var(--ok)} .days.warn .n{color:var(--gold2)} .days.cold .n{color:#e8826a}
+.days .u{font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);display:block;margin-top:1px}
+
+.filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.3rem;align-items:center}
+.fpill{background:none;border:1px solid var(--border);color:rgba(244,241,234,.6);padding:.55rem 1.05rem;font-family:inherit;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.fpill:hover{border-color:var(--border2);color:var(--gold2)}
+.fpill.on{background:rgba(201,168,76,.1);border-color:var(--gold);color:var(--gold3)}
+
+/* LEADS */
+.lead{display:grid;grid-template-columns:8px 1.4fr 1fr 1fr auto;align-items:center;gap:1rem;background:var(--bg2);padding:1.05rem 1.3rem 1.05rem .9rem;border-left:3px solid var(--gray)}
+.lead.hot{border-left-color:var(--hot);background:linear-gradient(90deg,rgba(224,86,63,.07),var(--bg2))}
+.lead.warm{border-left-color:var(--warn)}
+.lead.cont{opacity:.5}
+.lead .lnm{font-size:.98rem;color:var(--white)}
+.lead .lsub{font-size:.68rem;color:var(--gray);margin-top:3px;text-transform:uppercase;letter-spacing:.04em}
+.lead .lwhen{font-size:.82rem;color:var(--white2)}
+.lead .lwhen .pill{display:inline-block;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:100px;margin-top:4px}
+.lead.hot .pill{background:rgba(224,86,63,.18);color:#f0a08e}
+.lead.warm .pill{background:rgba(224,184,80,.16);color:var(--gold3)}
+.lead .ldesc{font-size:.78rem;color:var(--gray);line-height:1.4;max-height:2.8em;overflow:hidden}
+.lead-act{display:flex;gap:.5rem;justify-self:end}
+.bwa{display:inline-flex;align-items:center;gap:.4rem;background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.4);color:#5fe39a;padding:.5rem .85rem;font-family:inherit;font-size:.68rem;font-weight:500;letter-spacing:.04em;cursor:pointer;text-decoration:none;transition:all .2s;white-space:nowrap}
+.bwa:hover{background:rgba(37,211,102,.22)}
+.bwa svg{width:14px;height:14px;fill:currentColor}
+.bmark{background:none;border:1px solid var(--border2);color:var(--gold2);padding:.5rem .85rem;font-family:inherit;font-size:.68rem;letter-spacing:.04em;cursor:pointer;transition:all .2s;white-space:nowrap}
+.bmark:hover{border-color:var(--gold);color:var(--gold3)}
+
+/* ASEGURADORAS */
+.aseg-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:2rem}
+.aseg-st{background:var(--bg2);padding:1.4rem}
+.aseg-st .nm{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gold2);font-weight:500}
+.aseg-st .ln{display:flex;justify-content:space-between;font-size:.78rem;padding:.35rem 0;border-bottom:1px solid var(--border);color:var(--white2)}
+.aseg-st .ln:last-child{border-bottom:none}
+.aseg-st .ln .k{color:var(--gray)}
+.aseg-st .cnt{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-top:.6rem}
+.seg-form{display:grid;grid-template-columns:repeat(6,1fr);gap:.7rem;background:var(--bg2);border:1px solid var(--border);padding:1.2rem;margin-bottom:.4rem;align-items:end}
+.seg-form .ff{display:flex;flex-direction:column;gap:.4rem}
+.seg-form label{font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold2)}
+.seg-form input{background:var(--bg);border:1px solid var(--border);color:var(--white);padding:.6rem .65rem;font-family:inherit;font-size:.82rem}
+.seg-form input:focus{outline:none;border-color:var(--gold)}
+.seg-form .bsave{grid-column:span 6;background:var(--gold);color:var(--bg);border:none;padding:.8rem;font-family:inherit;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+.seg-form .bsave:hover{background:var(--gold2)}
+.aseg-row{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr 80px;gap:1rem;align-items:center;background:var(--bg2);padding:.9rem 1.3rem;font-size:.84rem}
+.aseg-row .s{color:var(--white)} .aseg-row .g{color:var(--gray)} .aseg-row .up{color:var(--ok)}
+
+.empty-s{padding:2.6rem;text-align:center;color:var(--gray);font-size:.86rem;background:var(--bg2);border:1px solid var(--border)}
+
+.cal-wrap{display:grid;grid-template-columns:1.4fr 1fr;gap:2rem;align-items:start}
+.cal{border:1px solid var(--border);background:var(--bg2);padding:1.5rem}
+.cal-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem}
+.cal-top .mname{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;color:var(--white)}
+.cal-top .mname em{font-style:italic;color:var(--gold2)}
+.cal-nav{display:flex;gap:.4rem}
+.cal-nav button{height:34px;min-width:34px;padding:0 .7rem;background:none;border:1px solid var(--border);color:var(--gold2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:inherit;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase}
+.cal-nav button:hover{border-color:var(--gold);background:rgba(201,168,76,.06)}
+.cal-nav svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.cal-dow{font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);text-align:center;padding:.4rem 0}
+.cal-day{min-height:46px;padding:4px;border:1px solid transparent;background:rgba(255,255,255,.018);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;transition:all .15s;font-size:.92rem;color:var(--white2)}
+.cal-day:hover{border-color:var(--border2);background:rgba(201,168,76,.05)}
+.cal-day.empty{background:none;cursor:default;pointer-events:none}
+.cal-day.today{border-color:var(--gold);color:var(--gold3);font-weight:500}
+.cal-day.sel{background:rgba(201,168,76,.13);border-color:var(--gold)}
+.cal-day .dot{position:absolute;bottom:7px;width:5px;height:5px;border-radius:50%;background:var(--gold2)}
+.cal-day .dot.multi{width:14px;border-radius:100px}
+
+.day-panel{border:1px solid var(--border);background:var(--bg2);padding:1.5rem;min-height:320px}
+.day-panel .dp-h{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:400;color:var(--white);margin-bottom:.3rem}
+.day-panel .dp-h em{font-style:italic;color:var(--gold2)}
+.day-panel .dp-sub{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);margin-bottom:1.3rem}
+.task{display:flex;align-items:flex-start;gap:.6rem;padding:.65rem .2rem;border-bottom:1px solid var(--border);font-size:.88rem;color:var(--white2);font-weight:300}
+.task .ck{width:17px;height:17px;border:1px solid var(--border2);flex-shrink:0;cursor:pointer;margin-top:1px;display:flex;align-items:center;justify-content:center}
+.task.done .ck{background:var(--gold);border-color:var(--gold)}
+.task.done{opacity:.45;text-decoration:line-through}
+.task .ck svg{width:11px;height:11px;stroke:var(--bg);fill:none;stroke-width:2.5;opacity:0}
+.task.done .ck svg{opacity:1}
+.task .tt{flex:1}
+.task .th2{font-size:.7rem;color:var(--gold2);margin-right:.4rem}
+.task .del{background:none;border:none;color:var(--gray);cursor:pointer;font-size:1rem;opacity:0;transition:opacity .2s;padding:0 .3rem}
+.task:hover .del{opacity:1}
+.task .del:hover{color:var(--cold)}
+.add-task{display:flex;gap:.5rem;margin-top:1.3rem}
+.add-task input[type=text]{flex:1}
+.add-task input,.add-task button{background:var(--bg);border:1px solid var(--border);color:var(--white);padding:.65rem .75rem;font-family:inherit;font-size:.82rem}
+.add-task input[type=time]{width:100px}
+.add-task input:focus{outline:none;border-color:var(--gold)}
+.add-task button{background:var(--gold);color:var(--bg);border-color:var(--gold);cursor:pointer;font-weight:500;letter-spacing:.04em;padding:.65rem 1rem}
+.add-task button:hover{background:var(--gold2)}
+
+.turno{display:grid;grid-template-columns:84px 1.3fr 1fr 120px 34px;align-items:center;gap:1rem;background:var(--bg2);padding:1.05rem 1.3rem;border-left:2px solid var(--border)}
+.turno.hoy{border-left-color:var(--gold)}
+.t-when{text-align:center}
+.t-when .d{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--gold2);line-height:1}
+.t-when .m{font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);margin-top:2px}
+.t-when .h{font-size:.78rem;color:var(--white2);margin-top:5px}
+.t-cli .nm{font-size:.94rem;color:var(--white)}
+.t-cli .mo{font-size:.7rem;color:var(--gray);margin-top:3px}
+.t-cancel{background:none;border:1px solid var(--border);color:var(--gray);width:30px;height:30px;cursor:pointer;font-size:1.1rem;line-height:1;transition:all .2s;justify-self:end}
+.t-cancel:hover{border-color:var(--cold);color:var(--cold)}
+
+.pago{display:grid;grid-template-columns:1.5fr 90px 1.3fr;align-items:center;gap:1rem;background:var(--bg2);padding:1.25rem 1.4rem;border-left:2px solid var(--gold)}
+.pago.redes{border-left-color:var(--blue2)}
+.pago .who2{font-size:1.1rem;color:var(--white);font-weight:400}
+.pago .who2 .sm{font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold2);display:block;margin-top:5px}
+.pago.redes .who2 .sm{color:#8aa0e0}
+.pago .ct{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--gold2);text-align:center}
+.pago .ct .u2{font-size:.54rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);display:block}
+.pago .names{font-size:.74rem;color:var(--gray);line-height:1.6}
+
+.scrim{position:fixed;inset:0;background:rgba(2,3,8,.7);backdrop-filter:blur(3px);z-index:80;opacity:0;pointer-events:none;transition:opacity .25s}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:480px;max-width:94vw;background:linear-gradient(180deg,var(--bg2),var(--bg));border-left:1px solid var(--border2);z-index:90;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);overflow-y:auto;padding:2rem 1.9rem}
+.drawer.on{transform:translateX(0)}
+.dr-x{position:absolute;top:1.4rem;right:1.5rem;background:none;border:1px solid var(--border);color:var(--gray);width:34px;height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.dr-x:hover{border-color:var(--gold);color:var(--gold)}
+.dr-x svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.6}
+.drawer h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:400;margin-bottom:.3rem;padding-right:2.5rem}
+.drawer .dr-sub{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:1.4rem}
+.dr-quick{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.4rem}
+.qbtn{display:inline-flex;align-items:center;gap:.45rem;background:rgba(92,174,120,.1);border:1px solid rgba(92,174,120,.4);color:#7fcf9a;padding:.6rem .9rem;font-family:inherit;font-size:.7rem;font-weight:500;letter-spacing:.04em;cursor:pointer;transition:all .2s}
+.qbtn:hover{background:rgba(92,174,120,.2)}
+.qbtn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.7}
+.qbtn.ref{background:rgba(201,168,76,.1);border-color:var(--border2);color:var(--gold2)}
+.qbtn.ref:hover{background:rgba(201,168,76,.2)}
+.qbtn.seg{background:rgba(30,51,128,.16);border-color:rgba(120,130,170,.35);color:#9fb0e8}
+.qbtn.seg:hover{background:rgba(30,51,128,.28)}
+.detail{border:1px solid var(--border);margin-bottom:1.6rem}
+.detail .dr-blk{padding:.95rem 1.1rem;border-bottom:1px solid var(--border)}
+.detail .dr-blk:last-child{border-bottom:none}
+.detail .dbl{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold2);margin-bottom:.5rem}
+.detail .drow{display:flex;justify-content:space-between;gap:1rem;font-size:.82rem;padding:3px 0}
+.detail .drow .k{color:var(--gray);font-weight:300}
+.detail .drow .v{color:var(--white2);text-align:right}
+.detail .drow .v.empty{color:var(--gray);font-style:italic}
+
+.chk-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem}
+.chk-h .t{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold2)}
+.chk-h .c{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold2)}
+.chk{border:1px solid var(--border);margin-bottom:1.6rem}
+.chkrow{display:flex;align-items:center;gap:.7rem;padding:.7rem .9rem;border-bottom:1px solid var(--border);font-size:.82rem;color:var(--white2);cursor:pointer;transition:background .15s}
+.chkrow:last-child{border-bottom:none}
+.chkrow:hover{background:rgba(201,168,76,.04)}
+.chkrow .cbx{width:18px;height:18px;border:1px solid var(--border2);flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.chkrow.on .cbx{background:var(--ok);border-color:var(--ok)}
+.chkrow .cbx svg{width:11px;height:11px;stroke:var(--bg);fill:none;stroke-width:2.6;opacity:0}
+.chkrow.on .cbx svg{opacity:1}
+.chkrow.on{color:var(--white)}
+
+/* RASTREADOR de custodia */
+.rastreo{border:1px solid var(--border2);background:linear-gradient(135deg,rgba(11,15,40,.5),var(--bg2));margin-bottom:1.6rem}
+.rt-head{display:flex;align-items:center;justify-content:space-between;padding:.8rem 1rem;border-bottom:1px solid var(--border)}
+.rt-head .t{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold2);display:flex;align-items:center;gap:.45rem}
+.rt-head .t svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.5}
+.rt-now{font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:100px;background:rgba(92,174,120,.14);color:#7fcf9a;border:1px solid rgba(92,174,120,.3)}
+.rt-now.out{background:rgba(224,106,72,.14);color:#e8917a;border-color:rgba(224,106,72,.35)}
+.rt-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
+.rt-cell{background:var(--bg2);padding:.7rem 1rem}
+.rt-cell .k{display:block;font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:3px}
+.rt-cell .v{font-size:.86rem;color:var(--white2)}
+.rt-cell .v.empty{color:var(--gray);font-style:italic}
+.rt-form{display:flex;flex-direction:column;gap:.5rem;padding:.9rem 1rem;border-top:1px solid var(--border)}
+.rt-form input{background:var(--bg);border:1px solid var(--border);color:var(--white);padding:.6rem .7rem;font-family:inherit;font-size:.82rem}
+.rt-form input:focus{outline:none;border-color:var(--gold)}
+.rt-form button{background:var(--gold);color:var(--bg);border:none;padding:.7rem;font-family:inherit;font-size:.66rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+.rt-form button:hover{background:var(--gold2)}
+.rt-hist{padding:.4rem 1rem 1rem}
+.rt-hl{display:flex;gap:.6rem;font-size:.72rem;color:var(--gray);padding:.4rem 0;border-top:1px solid var(--border)}
+.rt-hl .when{color:var(--gold2);white-space:nowrap;flex-shrink:0}
+.rt-hl .what{color:var(--white2)}
+.rt-hl .what b{color:var(--white);font-weight:400}
+.rt-hempty{font-size:.74rem;color:var(--gray);font-style:italic;padding:.4rem 0}
+
+/* GASTOS del expediente */
+.gastos-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem}
+.gastos-h .t{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold2)}
+.gastos-h .c{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--gold3)}
+.gastos{border:1px solid var(--border);margin-bottom:.6rem}
+.grow{display:flex;align-items:center;gap:.6rem;padding:.6rem .9rem;border-bottom:1px solid var(--border);font-size:.84rem}
+.grow:last-child{border-bottom:none}
+.grow .gc{flex:1;color:var(--white2)}
+.grow .gd{font-size:.62rem;color:var(--gray);letter-spacing:.04em}
+.grow .gm{color:var(--white);font-variant-numeric:tabular-nums}
+.grow .gx{background:none;border:none;color:var(--gray);cursor:pointer;font-size:1rem;line-height:1;padding:0 .2rem;transition:color .2s}
+.grow .gx:hover{color:var(--cold)}
+.gempty{font-size:.78rem;color:var(--gray);font-style:italic;padding:.7rem .9rem}
+.g-form{display:grid;grid-template-columns:1fr 100px 74px;gap:.5rem;margin-bottom:1.6rem}
+.g-form input{background:var(--bg);border:1px solid var(--border);color:var(--white);padding:.6rem .7rem;font-family:inherit;font-size:.82rem}
+.g-form input:focus{outline:none;border-color:var(--gold)}
+.g-form button{background:var(--gold);color:var(--bg);border:none;font-family:inherit;font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.g-form button:hover{background:var(--gold2)}
+
+/* Sección Ubicación de carpetas */
+.ubi{display:grid;grid-template-columns:1.4fr 1fr 1fr 130px;align-items:center;gap:1rem;background:var(--bg2);padding:1.05rem 1.3rem;cursor:pointer;border-left:2px solid var(--border);transition:background .15s}
+.ubi:hover{background:var(--navy)}
+.ubi.out{border-left-color:var(--cold)}
+.ubi.old{border-left-color:var(--hot)}
+.ubi .un{font-size:.94rem;color:var(--white)}
+.ubi .umeta{font-size:.64rem;letter-spacing:.05em;color:var(--gray);margin-top:4px;text-transform:uppercase}
+.ubi .uwho{display:flex;align-items:center;gap:.5rem;font-size:.84rem;color:var(--white2)}
+.ubi .uwho .av{width:24px;height:24px;flex-shrink:0;border-radius:50%;background:linear-gradient(135deg,var(--navy2),var(--bg2));border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.56rem;color:var(--gold2)}
+.ubi .usince{justify-self:end;text-align:right}
+.ubi .usince .n{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;line-height:1;color:var(--white2)}
+.ubi.out .usince .n{color:var(--gold2)} .ubi.old .usince .n{color:#e8826a}
+.ubi .usince .u{font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);display:block;margin-top:2px}
+.chip.ubic{color:#8aa0e0;border-color:rgba(120,130,170,.35);background:rgba(30,51,128,.14)}
+.chip.ubic.office{color:var(--ok);border-color:rgba(92,174,120,.3);background:rgba(92,174,120,.08)}
+
+.field{margin-bottom:1.2rem}
+.field.row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.field label{display:block;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold2);margin-bottom:.5rem}
+.field select,.field input{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--white);padding:.78rem .9rem;font-family:inherit;font-size:.88rem;transition:border-color .2s}
+.field select:focus,.field input:focus{outline:none;border-color:var(--gold)}
+.dr-actions{display:flex;gap:.7rem;margin-top:1.6rem}
+.btn-g{flex:1;background:var(--gold);color:var(--bg);border:none;padding:.95rem;font-family:inherit;font-size:.74rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.btn-g:hover{background:var(--gold2)}
+.btn-go{background:none;border:1px solid var(--border2);color:var(--white2);padding:.95rem 1.1rem;font-family:inherit;font-size:.74rem;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:.5rem;transition:all .2s}
+.btn-go:hover{border-color:var(--gold);color:var(--gold)}
+.btn-go svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.6}
+
+.toast{position:fixed;bottom:1.6rem;left:50%;transform:translateX(-50%) translateY(120%);background:var(--navy);border:1px solid var(--gold);color:var(--gold3);padding:.9rem 1.6rem;font-size:.82rem;letter-spacing:.03em;z-index:120;transition:transform .3s;text-align:center;max-width:90vw}
+.toast.on{transform:translateX(-50%) translateY(0)}
+
+@media(max-width:920px){
+  #app.on{flex-direction:column}
+  aside{width:100%;height:auto;min-height:0;position:static;flex-direction:column}
+  nav.side{flex-direction:row;overflow-x:auto;flex-wrap:nowrap}
+  .nav-i{border-left:none;border-bottom:2px solid transparent;white-space:nowrap}
+  .nav-i.on{border-left:none;border-bottom-color:var(--gold)}
+  .nav-i .badge{margin-left:.4rem}
+  .today-grid{grid-template-columns:1fr}
+  .cal-wrap{grid-template-columns:1fr}
+  .exp{grid-template-columns:1fr 90px;grid-template-areas:"nm days" "etapa days" "who heat" "src heat"}
+  .exp>.c-nm{grid-area:nm}.exp>.c-etapa{grid-area:etapa}.exp>.c-who{grid-area:who}.exp>.c-src{grid-area:src}.exp>.c-heat{grid-area:heat}.exp>.c-days{grid-area:days}
+  .lead{grid-template-columns:1fr;gap:.6rem}.lead-act{justify-self:start}
+  .turno{grid-template-columns:64px 1fr 34px}.turno>.t-meta,.turno>.t-ab{display:none}
+  .pago{grid-template-columns:1fr 70px}.pago>.names{display:none}
+  .seg-form{grid-template-columns:1fr 1fr}.seg-form .bsave{grid-column:span 2}
+  .aseg-row{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div id="login">
+  <div class="lph"></div><div class="lgr"></div><div class="lgrid"></div>
+  <div class="lbox">
+    <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=320,fit=crop,q=95/AzG3MXjOpKfBol0d/4-removebg-preview-YZ9xgPgQgXT5jZqP.png" alt="Estudio Lena & Asociados">
+    <div class="ltitle serif">Panel de Dirección</div>
+    <div class="lsub">Estudio Lena &amp; Asociados</div>
+    <label>Correo</label>
+    <input type="email" id="l-email" placeholder="tu@correo.com" autocomplete="username">
+    <label>Contraseña</label>
+    <input type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password">
+    <button id="l-btn">Ingresar</button>
+    <div class="lerr" id="l-err"></div>
+  </div>
+</div>
+
+<div id="app">
+<aside>
+  <div class="brand">
+    <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=320,fit=crop,q=95/AzG3MXjOpKfBol0d/4-removebg-preview-YZ9xgPgQgXT5jZqP.png" alt="Estudio Lena & Asociados">
+    <div class="sub">Panel de Dirección</div>
+  </div>
+  <div class="pb-card">
+    <div class="pb-mono" id="me-mono">··</div>
+    <div><div class="nm" id="me-nombre">—</div><div class="rl" id="me-rol">—</div></div>
+    <button class="logout" id="logout" title="Cerrar sesión"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg></button>
+  </div>
+  <nav class="side">
+    <button class="nav-i on" data-s="inicio"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h14V10"/></svg>Inicio</button>
+    <button class="nav-i" data-s="expedientes"><svg viewBox="0 0 24 24"><path d="M4 4h11l5 5v11H4z"/><path d="M14 4v6h6"/></svg>Expedientes</button>
+    <button class="nav-i" data-s="ubicacion"><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.6-7-11a7 7 0 1 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Ubicación de carpetas<span class="badge" id="bdg-ubi" style="display:none;background:var(--cold)">0</span></button>
+    <button class="nav-i" data-s="agenda"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="1"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>Mi agenda</button>
+    <button class="nav-i" data-s="turnos"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Turnos</button>
+    <button class="nav-i" data-s="aseguradoras"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.5 8 8 11 4.5-3 8-6 8-11V5z"/></svg>Aseguradoras</button>
+    <button class="nav-i" data-s="pagos"><svg viewBox="0 0 24 24"><path d="M3 7h18v12H3z"/><path d="M3 11h18M7 15h4"/></svg>Pagos a captadores</button>
+  </nav>
+  <div class="side-foot">
+    <a class="ext" href="https://estudiolena.github.io/expedientes/" target="_blank"><svg viewBox="0 0 24 24"><path d="M14 3h7v7M21 3l-9 9M19 14v6H4V5h6"/></svg>Panel de expedientes completo</a>
+  </div>
+</aside>
+
+<main>
+  <div class="topband">
+    <div class="ph"></div><div class="gr"></div><div class="grid"></div>
+    <div class="inner">
+      <div><h1 class="serif" id="greet">Hola.</h1><div class="date" id="hoy"></div></div>
+      <div class="gsearch-wrap">
+        <div class="gsearch-box">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input id="gsearch" placeholder="Buscar cliente, carpeta o función…" autocomplete="off">
+          <button id="help-btn" title="Ayuda — qué puedo hacer">?</button>
+        </div>
+        <div class="gsearch-res" id="gsearch-res"></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section on" id="s-inicio">
+    <div class="today">
+      <div class="th">
+        <div class="t serif">Para <em>hoy</em></div>
+        <div class="rgt">
+          <button class="btn-tg" id="tg-btn"><svg viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>Resumen a Telegram</button>
+          <div class="dd" id="today-date"></div>
+        </div>
+      </div>
+      <div class="today-grid">
+        <div class="tcol">
+          <h4><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4M21 12v7H3V5h13"/></svg>Mi agenda</h4>
+          <div class="tlist" id="today-agenda"></div>
+        </div>
+        <div class="tcol">
+          <h4><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Turnos de hoy</h4>
+          <div class="tlist" id="today-turnos"></div>
+          <h4 style="margin-top:1.4rem"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>Pendientes del estudio</h4>
+          <div class="tlist" id="today-alertas"></div>
+        </div>
+      </div>
+    </div>
+    <div class="kpis" id="kpis"></div>
+    <div class="block-h"><span class="t serif">De dónde vienen las carpetas</span><span class="c">por fuente de captación</span><span class="line"></span></div>
+    <div class="srcgrid" id="fuentes"></div>
+    <div class="block-h"><span class="t serif">Necesita su atención</span><span class="c">colgadas y sin responsable</span><span class="line"></span></div>
+    <div class="cards" id="atencion"></div>
+  </section>
+
+  <section class="section" id="s-expedientes">
+    <div class="shead"><div><span class="tag">Cartera completa</span><h2 class="serif">Todos los <em>expedientes.</em></h2><div class="sd">Tocá una carpeta para ver el detalle, cargar el checklist de prueba, registrar un contacto o cambiar el responsable. Todo se guarda en vivo.</div></div></div>
+    <div class="filters">
+      <button class="fpill on" data-f="all">Todas</button>
+      <button class="fpill" data-f="sin">Sin responsable</button>
+      <button class="fpill" data-f="colgadas">Colgadas</button>
+      <button class="fpill" data-f="mediacion">En mediación</button>
+      <button class="fpill" data-f="nuevas">Nuevas (7 días)</button>
+    </div>
+    <div class="cards" id="lista-exp"></div>
+  </section>
+
+  <section class="section" id="s-ubicacion">
+    <div class="shead"><div><span class="tag">Rastreador de carpetas</span><h2 class="serif">¿Dónde está <em>cada carpeta?</em></h2><div class="sd">Dónde está físicamente cada expediente, quién lo tiene y con qué motivo. Las carpetas que salieron de la oficina aparecen primero; en rojo las que están afuera hace más de una semana. Tocá cualquiera para registrar un movimiento.</div></div></div>
+    <div class="filters">
+      <button class="fpill on" data-fu="all">Todas</button>
+      <button class="fpill" data-fu="fuera">Fuera de la oficina</button>
+      <button class="fpill" data-fu="alguien">En manos de alguien</button>
+      <button class="fpill" data-fu="viejas">Afuera +7 días</button>
+    </div>
+    <div class="cards" id="lista-ubi"></div>
+  </section>
+
+  <section class="section" id="s-agenda">
+    <div class="shead"><div><span class="tag">Agenda personal</span><h2 class="serif">Mi <em>calendario.</em></h2><div class="sd">Tu agenda privada. Tocá un día para anotar lo que quieras. Lo de hoy aparece en la pantalla de inicio.</div></div></div>
+    <div class="cal-wrap">
+      <div class="cal">
+        <div class="cal-top">
+          <div class="mname serif" id="cal-mname"></div>
+          <div class="cal-nav">
+            <button id="cal-prev"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <button id="cal-today">hoy</button>
+            <button id="cal-next"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+          </div>
+        </div>
+        <div class="cal-grid" id="cal-grid"></div>
+      </div>
+      <div class="day-panel">
+        <div class="dp-h serif" id="dp-h">Elegí un <em>día</em></div>
+        <div class="dp-sub" id="dp-sub">Tocá una fecha del calendario</div>
+        <div id="dp-tasks"></div>
+        <div class="add-task" id="dp-add" style="display:none">
+          <input type="time" id="dp-time">
+          <input type="text" id="dp-text" placeholder="Anotar algo…">
+          <button id="dp-save-task">Agregar</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="s-turnos">
+    <div class="shead">
+      <div><span class="tag">Agenda del estudio</span><h2 class="serif">Próximos <em>turnos.</em></h2></div>
+      <button class="btn-add" id="t-new"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Nuevo turno</button>
+    </div>
+    <div class="cards" id="lista-turnos"></div>
+  </section>
+
+  <section class="section" id="s-aseguradoras">
+    <div class="shead"><div><span class="tag">Inteligencia de negociación</span><h2 class="serif">Base de <em>aseguradoras.</em></h2><div class="sd">Cargá cada acuerdo o mediación cerrada: contra qué seguro fue, cuánto ofrecieron al principio y en cuánto cerró. Con el tiempo tenés números reales para sentarte a negociar sabiendo cómo se mueve cada compañía.</div></div></div>
+    <div class="aseg-stats" id="aseg-stats"></div>
+    <div class="block-h"><span class="t serif">Cargar un acuerdo</span><span class="line"></span></div>
+    <div class="seg-form">
+      <div class="ff"><label>Seguro</label><input id="sf-seguro" placeholder="La Caja, Federación..."></div>
+      <div class="ff"><label>Tipo de caso</label><input id="sf-tipo" placeholder="Lesiones leves..."></div>
+      <div class="ff"><label>Ofrecido inicial $</label><input id="sf-ofrecido" type="number" inputmode="numeric"></div>
+      <div class="ff"><label>Cerró en $</label><input id="sf-cerrado" type="number" inputmode="numeric"></div>
+      <div class="ff"><label>Días que tardó</label><input id="sf-dias" type="number" inputmode="numeric"></div>
+      <div class="ff"><label>Expediente (opc.)</label><input id="sf-exp" placeholder="Nombre / nro"></div>
+      <button class="bsave" id="sf-save">Guardar acuerdo</button>
+    </div>
+    <div class="block-h"><span class="t serif">Acuerdos cargados</span><span class="line"></span></div>
+    <div class="cards" id="lista-aseg"></div>
+  </section>
+
+  <section class="section" id="s-pagos">
+    <div class="shead"><div><span class="tag">Captación</span><h2 class="serif">A quién hay que <em>pagarle.</em></h2><div class="sd">Carpetas agrupadas por quién las trajo. Las que entran por redes se le pagan al equipo de redes (Benjamín, Santiago, Matías y Carlos). Las que trae un captador externo se le pagan a esa persona.</div></div></div>
+    <div class="cards" id="lista-pagos"></div>
+  </section>
+</main>
+</div>
+
+<!-- Drawer expediente -->
+<div class="scrim" id="scrim"></div>
+<div class="drawer" id="drawer">
+  <button class="dr-x" id="dr-x"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  <h3 class="serif" id="dr-nombre">—</h3>
+  <div class="dr-sub" id="dr-sub">—</div>
+  <div class="dr-quick">
+    <button class="qbtn" id="dr-contacto"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Registré contacto hoy</button>
+    <button class="qbtn ref" id="dr-referido" style="display:none"><svg viewBox="0 0 24 24"><path d="M16 11a4 4 0 1 0-8 0M2 21a8 8 0 0 1 16 0M19 8v6M22 11h-6"/></svg>Pedir referido</button>
+    <button class="qbtn seg" id="dr-seg"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>Link seguimiento</button>
+  </div>
+  <div class="rastreo">
+    <div class="rt-head"><span class="t"><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.6-7-11a7 7 0 1 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Rastreador de la carpeta</span><span class="rt-now" id="rt-now">En la oficina</span></div>
+    <div class="rt-grid">
+      <div class="rt-cell"><span class="k">Dónde está</span><span class="v" id="rt-ubic">—</span></div>
+      <div class="rt-cell"><span class="k">Quién la tiene</span><span class="v" id="rt-poder">—</span></div>
+      <div class="rt-cell"><span class="k">Motivo</span><span class="v" id="rt-motivo">—</span></div>
+      <div class="rt-cell"><span class="k">Desde</span><span class="v" id="rt-desde">—</span></div>
+    </div>
+    <div class="rt-form">
+      <input list="ubic-list" id="rt-in-ubic" placeholder="Dónde está (oficina, tribunales, mediación…)">
+      <input list="poder-list" id="rt-in-poder" placeholder="Quién la tiene">
+      <input id="rt-in-motivo" placeholder="Con qué motivo (preparar demanda, mesa de entradas…)">
+      <button id="rt-save">Registrar movimiento</button>
+    </div>
+    <div class="rt-hist" id="rt-hist"></div>
+  </div>
+  <datalist id="ubic-list"></datalist>
+  <datalist id="poder-list"></datalist>
+  <div class="chk-h"><span class="t">Checklist de prueba temprana</span><span class="c serif" id="chk-count">0/9</span></div>
+  <div class="chk" id="chk-list"></div>
+  <div class="gastos-h"><span class="t">Gastos del expediente</span><span class="c serif" id="g-total">$0</span></div>
+  <div class="gastos" id="g-list"></div>
+  <div class="g-form">
+    <input list="gasto-list" id="g-concepto" placeholder="Concepto (tasa, pericia, oficios…)">
+    <input id="g-monto" type="number" inputmode="numeric" placeholder="$">
+    <button id="g-add">Sumar</button>
+  </div>
+  <datalist id="gasto-list"></datalist>
+  <div class="detail" id="dr-detail"></div>
+  <div class="field"><label>Abogado responsable</label><select id="f-resp"></select></div>
+  <div class="field" id="f-resp-otro-wrap" style="display:none"><label>Nombre del abogado/a</label><input id="f-resp-otro" placeholder="Escribí quién se hace cargo"></div>
+  <div class="field"><label>Etapa del proceso</label><select id="f-etapa"></select></div>
+  <div class="field"><label>Estado</label><select id="f-estado"></select></div>
+  <div class="field"><label>De quién vino (captador)</label><input id="f-referido" placeholder="Redes sociales, Lautaro, etc."></div>
+  <div class="dr-actions">
+    <button class="btn-g" id="dr-save">Guardar cambios</button>
+    <a class="btn-go" id="dr-open" target="_blank"><svg viewBox="0 0 24 24"><path d="M14 3h7v7M21 3l-9 9M19 14v6H4V5h6"/></svg>Abrir</a>
+  </div>
+</div>
+
+<!-- Drawer nuevo turno -->
+<div class="scrim" id="t-scrim"></div>
+<div class="drawer" id="t-drawer">
+  <button class="dr-x" id="t-x"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  <h3 class="serif">Nuevo <em style="font-style:italic;color:var(--gold2)">turno</em></h3>
+  <div class="dr-sub">Se agrega a la agenda del estudio</div>
+  <div class="field row2">
+    <div><label>Nombre</label><input id="nt-nombre" placeholder="Nombre"></div>
+    <div><label>Apellido</label><input id="nt-apellido" placeholder="Apellido"></div>
+  </div>
+  <div class="field"><label>Teléfono</label><input id="nt-tel" placeholder="11 ..."></div>
+  <div class="field row2">
+    <div><label>Fecha</label><input type="date" id="nt-fecha"></div>
+    <div><label>Hora</label><input type="time" id="nt-hora"></div>
+  </div>
+  <div class="field row2">
+    <div><label>Sede</label><select id="nt-sede"><option value="moron">Morón</option><option value="caba">CABA</option></select></div>
+    <div><label>Abogado</label><select id="nt-abogado"></select></div>
+  </div>
+  <div class="field"><label>Motivo</label><input id="nt-motivo" placeholder="Accidente de tránsito, seguimiento, etc."></div>
+  <div class="dr-actions"><button class="btn-g" id="t-save">Agregar turno</button></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Drawer de ayuda -->
+<div class="scrim" id="help-scrim"></div>
+<div class="drawer" id="help-drawer">
+  <button class="dr-x" id="help-x"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  <h3 class="serif">¿Qué puedo <em style="font-style:italic;color:var(--gold2)">hacer acá?</em></h3>
+  <div class="dr-sub">Guía rápida del panel</div>
+  <div class="help-intro">Este es el panel de dirección del estudio. Todo lo que ves está conectado en vivo. Tocá cualquier función de abajo para ir directo, o usá el buscador de arriba para encontrar un cliente o una carpeta al instante.</div>
+  <div id="help-content"></div>
+</div>
+
+<script>
+const SUPABASE_URL="https://iboydjjeaeeayxjvaykr.supabase.co";
+const ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlib3lkamplYWVlYXl4anZheWtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0NDY3NjAsImV4cCI6MjA5NDAyMjc2MH0.e8Yy8E4oXvJWgY-AXWhlOtoLBZeZY8w1liLHM4JPY84";
+const SEGUIMIENTO_BASE="https://estudiolena.github.io/seguimiento-cliente.html";
+
+const T_WARN=15,T_COLD=30,HEAT_MAX=45;
+const REDES_TEAM=["Benjamín","Santiago","Matías","Carlos"];
+const PERFILES=[
+  {id:"b5e292fb-9e8f-4fd6-80ea-9cdf246748c5",nombre:"Andrea Galvalisi"},
+  {id:"c09d4bbb-7951-497e-9c39-6798a7ffb359",nombre:"Carlos Sabatini"},
+  {id:"d6915e79-b092-4624-b48c-d901d575efc9",nombre:"Gabriela Telebak"},
+  {id:"3619f11b-1b9b-4a05-89b4-89df2a80b444",nombre:"Lautaro Antuña"},
+  {id:"0b8989ea-d4a4-4b8d-9069-200a7ed565ee",nombre:"Matías Mehlhorn"},
+  {id:"df069a01-9ab8-409e-a175-c74329747b65",nombre:"Pablo Bonapelch"},
+  {id:"24c55596-f837-4f0e-978d-79c3b09a7f10",nombre:"Santiago"},
+  {id:"e5e3537b-721a-4666-8308-a17e714481a0",nombre:"Viviana"}
+];
+const USUARIOS=[
+  {id:"62587eb7-2e83-40eb-b5e0-bb69b710a7b9",nombre:"Andrea Galvalisi"},
+  {id:"45ee3828-5fde-4726-882b-b9890d6bf366",nombre:"Benjamín"},
+  {id:"a4f6053a-ce63-451d-9cde-e979b8a40b53",nombre:"Carlos Sabatini"},
+  {id:"ce1f8b97-28f9-4cec-8dad-8160d04cf60a",nombre:"Gabriela Telebak"},
+  {id:"7529ad1c-73ce-4cdf-81cb-844763a3d6c1",nombre:"Lautaro"},
+  {id:"98597660-7c0e-4bff-b719-6d55fbc7981d",nombre:"Matías"},
+  {id:"6c15c4e2-944a-4827-9f4e-5441cf4d7a2a",nombre:"Pablo"},
+  {id:"42acac5c-6a87-446d-9f88-415014b4dfa0",nombre:"Santiago"},
+  {id:"2b262b38-c077-49fd-9470-bf6314dbd784",nombre:"Viviana"}
+];
+const ETAPAS=["Inicial","Recolección de prueba","Mediación previa (Ley 13.951)","Audiencia fijada","Post-audiencia","Demanda","Prueba / pericias","Sentencia","Acuerdo / Cobro","Archivado"];
+const ESTADOS=["En trámite","Frenado","Cerrado","Archivado"];
+const CHECKLIST=[
+  {k:"parte",t:"Parte policial / exposición civil"},
+  {k:"denuncia",t:"Denuncia penal (UFI / IPP)"},
+  {k:"fotos",t:"Fotos del lugar y de los vehículos"},
+  {k:"testigos",t:"Datos de testigos del hecho"},
+  {k:"medico",t:"Primera atención médica / historia clínica"},
+  {k:"seguro",t:"Datos del seguro contrario y póliza"},
+  {k:"danos",t:"Constancia de daños / presupuesto"},
+  {k:"cliente",t:"DNI y datos del cliente completos"},
+  {k:"mediacion",t:"Carta documento / mediación iniciada"}
+];
+
+const UBICACIONES=["Oficina Morón (9 de Julio 172)","Oficina CABA (Callao 433)","Tribunales Morón","Tribunales CABA / Nacional","Mediación","Escribanía / Perito","Con el cliente","Archivo","En tránsito"];
+const POSEEDORES=["Andrea Galvalisi","Carlos Sabatini","Gabriela Telebak","Lautaro Antuña","Matías Mehlhorn","Pablo Bonapelch","Santiago","Benjamín","Viviana","Cliente","Cadete / correo","Recepción"];
+const GASTOS_COMUNES=["Tasa de justicia","Bono ley (derecho fijo)","Anticipo de pericia médica","Anticipo de pericia mecánica","Anticipo de pericia accidentológica","Diligenciamiento de oficios","Cédulas / mandamientos","Honorarios de mediación","Fotocopias / testimonios","Movilidad"];
+const esOficina=u=>!u||/oficina|archivo|recep/i.test(u);
+let EXP=[],TURNOS=[],ASEG=[],HIST=[],curIdx=null,filt="all",filtU="all",SESSION=null,ME={id:null,nombre:"",rol:""};
+const $=s=>document.querySelector(s);
+const perfilName=id=>{const p=PERFILES.find(x=>x.id===id);return p?p.nombre:null;};
+const respName=x=>perfilName(x.resp)||x.respLibre||null;
+const dias=iso=>{if(!iso)return 0;const d=new Date(iso.slice(0,10)+"T00:00:00");return Math.max(0,Math.floor((Date.now()-d)/86400000));};
+const tier=d=>d>T_COLD?"cold":d>=T_WARN?"warn":"ok";
+const initials=n=>{const p=(n||"").trim().split(/\s+/);return ((p[0]?.[0]||"")+(p[1]?.[0]||"")).toUpperCase();};
+const titleCase=s=>(s||"").toLowerCase().replace(/(^|\s)\p{L}/gu,m=>m.toUpperCase());
+const money=n=>(n==null||n==='')?'—':'$'+Number(n).toLocaleString('es-AR');
+/* FECHA LOCAL (Argentina) — corrige el bug de la agenda */
+const todayISO=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;};
+function fechaLarga(d){const f=new Intl.DateTimeFormat('es-AR',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(d);return f.charAt(0).toUpperCase()+f.slice(1);}
+function authHeaders(){return{apikey:ANON_KEY,Authorization:"Bearer "+(SESSION?.access_token||ANON_KEY)};}
+function haceCuanto(iso){if(!iso)return"";const ms=Date.now()-new Date(iso).getTime();const min=Math.floor(ms/60000);if(min<1)return"recién";if(min<60)return`hace ${min} min`;const hs=Math.floor(min/60);if(hs<24)return`hace ${hs} h`;const d=Math.floor(hs/24);return`hace ${d} día${d>1?'s':''}`;}
+function waLink(tel,msg){let d=(tel||"").replace(/\D/g,"");if(!d)return null;if(d.startsWith("0"))d=d.slice(1);if(!d.startsWith("54"))d="54"+d;return `https://wa.me/${d}?text=${encodeURIComponent(msg)}`;}
+
+function agKey(){return "agenda_"+(ME.id||"anon");}
+function agLoad(){try{return JSON.parse(localStorage.getItem(agKey())||"{}");}catch(e){return {};}}
+function agSave(o){localStorage.setItem(agKey(),JSON.stringify(o));}
+function agDay(iso){const a=agLoad();return a[iso]||[];}
+function agSetDay(iso,arr){const a=agLoad();if(arr.length)a[iso]=arr;else delete a[iso];agSave(a);}
+
+async function doLogin(email,pass){
+  const r=await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`,{method:'POST',headers:{apikey:ANON_KEY,"Content-Type":"application/json"},body:JSON.stringify({email,password:pass})});
+  const j=await r.json();
+  if(!r.ok) throw new Error(j.error_description||j.msg||"No pudimos ingresar");
+  SESSION={access_token:j.access_token,refresh_token:j.refresh_token,user_id:j.user?.id};
+  localStorage.setItem("sb_session",JSON.stringify(SESSION));return SESSION;
+}
+async function refreshSession(rt){
+  const r=await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`,{method:'POST',headers:{apikey:ANON_KEY,"Content-Type":"application/json"},body:JSON.stringify({refresh_token:rt})});
+  if(!r.ok)return null;const j=await r.json();
+  SESSION={access_token:j.access_token,refresh_token:j.refresh_token,user_id:j.user?.id};
+  localStorage.setItem("sb_session",JSON.stringify(SESSION));return SESSION;
+}
+async function fetchMe(){
+  const r=await fetch(`${SUPABASE_URL}/rest/v1/perfiles?select=id,nombre,rol&id=eq.${SESSION.user_id}`,{headers:authHeaders()});
+  const j=await r.json();
+  ME=(j&&j[0])?{id:j[0].id,nombre:j[0].nombre||"",rol:j[0].rol||""}:{id:SESSION.user_id,nombre:"",rol:""};
+}
+function logout(){localStorage.removeItem("sb_session");SESSION=null;location.reload();}
+
+function expRow(x,i){
+  const d=dias(x.act),t=tier(d),w=Math.min(100,Math.round(d/HEAT_MAX*100));
+  const r=respName(x);
+  const etapa=x.etapa?`<span class="chip">${x.etapa}</span>`:`<span class="chip empty">Sin etapa</span>`;
+  const vino=x.referido?'Vino por '+titleCase(x.referido):'Captación directa';
+  const who=r?`<div class="who"><span class="av">${initials(r)}</span>${r}</div>`:`<div class="who none"><span class="av">!</span>Sin asignar</div>`;
+  return `<div class="exp" data-i="${i}">
+    <div class="c-nm"><div class="nm">${titleCase(x.nombre)}</div><div class="meta">${vino}</div></div>
+    <div class="c-etapa">${etapa}</div>
+    <div class="c-who">${who}</div>
+    <div class="c-heat heat tier-${t}"><div class="track"><div class="fill" style="width:${w}%"></div></div></div>
+    <div class="c-days days ${t}"><span class="n">${d}</span><span class="u">días</span></div>
+  </div>`;
+}
+function renderFuentes(){
+  const map={};EXP.forEach(x=>{const k=x.referido?titleCase(x.referido):'Directa / sin fuente';map[k]=(map[k]||0)+1;});
+  const arr=Object.entries(map).sort((a,b)=>b[1]-a[1]);
+  $('#fuentes').innerHTML=arr.map(([k,v])=>`<div class="srccell"><div class="sn">${k}</div><div class="sv">${v}</div><div class="sx">carpeta${v>1?'s':''}</div></div>`).join('')||'<div class="srccell"><div class="sx">Sin datos</div></div>';
+}
+function renderInicio(){
+  const total=EXP.length,sin=EXP.filter(x=>!respName(x)).length,frias=EXP.filter(x=>dias(x.act)>T_COLD).length;
+  $('#kpis').innerHTML=`
+    <div class="kpi"><div class="v">${total}</div><div class="l">Carpetas activas</div></div>
+    <div class="kpi alert"><div class="v">${sin}</div><div class="l">Sin responsable</div></div>
+    <div class="kpi alert"><div class="v">${frias}</div><div class="l">Colgadas · +30 días</div></div>
+    <div class="kpi"><div class="v">${TURNOS.filter(t=>t.fecha===todayISO()).length}</div><div class="l">Turnos hoy</div></div>`;
+  const iso=todayISO();
+  $('#today-date').textContent=fechaLarga(new Date());
+  const tasks=agDay(iso);
+  $('#today-agenda').innerHTML=tasks.length?tasks.map((t,j)=>`<div class="titem ${t.done?'done':''}"><span class="ck" data-today="${j}"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>${t.h?`<b style="color:var(--gold2);font-weight:400">${t.h}</b> `:''}${t.t}</div>`).join(''):'<div class="tempty">No anotaste nada para hoy. Andá a "Mi agenda" para sumar.</div>';
+  const turHoy=TURNOS.filter(t=>t.fecha===iso);
+  $('#today-turnos').innerHTML=turHoy.length?turHoy.map(t=>`<div class="titem gold">${titleCase((t.cliente_nombre||'')+' '+(t.cliente_apellido||''))}<span class="tk">${(t.hora||'').slice(0,5)} · ${t.sede?t.sede.toUpperCase():''}</span></div>`).join(''):'<div class="tempty">Sin turnos para hoy.</div>';
+  const al=[];
+  if(sin>0)al.push(`<div class="titem warn">${sin} carpeta${sin>1?'s':''} sin responsable<span class="tk">asignar</span></div>`);
+  if(frias>0)al.push(`<div class="titem warn">${frias} carpeta${frias>1?'s':''} colgada${frias>1?'s':''} +30 días<span class="tk">revisar</span></div>`);
+  $('#today-alertas').innerHTML=al.length?al.join(''):'<div class="tempty">Todo al día.</div>';
+  const aten=EXP.map((x,i)=>({x,i})).filter(o=>!respName(o.x)||dias(o.x.act)>T_COLD).sort((a,b)=>dias(b.x.act)-dias(a.x.act));
+  $('#atencion').innerHTML=aten.length?aten.map(o=>expRow(o.x,o.i)).join(''):'<div class="empty-s">Todo al día.</div>';
+  renderFuentes();
+}
+function renderExp(){
+  let arr=EXP.map((x,i)=>({x,i}));
+  if(filt==="sin")arr=arr.filter(o=>!respName(o.x));
+  if(filt==="colgadas")arr=arr.filter(o=>dias(o.x.act)>=T_WARN);
+  if(filt==="mediacion")arr=arr.filter(o=>/medi/i.test(o.x.etapa||""));
+  if(filt==="nuevas")arr=arr.filter(o=>dias(o.x.alta)<=7);
+  arr.sort((a,b)=>dias(b.x.act)-dias(a.x.act));
+  $('#lista-exp').innerHTML=arr.length?arr.map(o=>expRow(o.x,o.i)).join(''):'<div class="empty-s">No hay carpetas con este filtro.</div>';
+}
+const diasCust=ts=>ts?Math.max(0,Math.floor((Date.now()-new Date(ts))/86400000)):0;
+function ubiRow(x,i){
+  const fuera=!esOficina(x.ubic),d=diasCust(x.custDesde),vieja=fuera&&d>7;
+  const cls=vieja?'old':(fuera?'out':'');
+  const lugar=x.ubic||'En la oficina';
+  const chip=`<span class="chip ubic ${esOficina(x.ubic)?'office':''}">${lugar}</span>`;
+  const quien=x.poder?`<div class="uwho"><span class="av">${initials(x.poder)}</span>${x.poder}</div>`:'<div class="uwho" style="color:var(--gray)">—</div>';
+  const desde=x.custDesde?`<span class="n">${d}</span><span class="u">día${d===1?'':'s'}</span>`:'<span class="n" style="color:var(--gray)">·</span><span class="u">en oficina</span>';
+  return `<div class="ubi ${cls}" data-i="${i}">
+    <div><div class="un">${titleCase(x.nombre)}</div><div class="umeta">${x.custMotivo?x.custMotivo:(respName(x)?'A cargo de '+respName(x):'Sin motivo registrado')}</div></div>
+    <div>${chip}</div>
+    ${quien}
+    <div class="usince">${desde}</div>
+  </div>`;
+}
+function renderUbic(){
+  let arr=EXP.map((x,i)=>({x,i}));
+  if(filtU==="fuera")arr=arr.filter(o=>!esOficina(o.x.ubic));
+  if(filtU==="alguien")arr=arr.filter(o=>o.x.poder);
+  if(filtU==="viejas")arr=arr.filter(o=>!esOficina(o.x.ubic)&&diasCust(o.x.custDesde)>7);
+  arr.sort((a,b)=>{
+    const fa=!esOficina(a.x.ubic),fb=!esOficina(b.x.ubic);
+    if(fa!==fb)return fa?-1:1;
+    return diasCust(b.x.custDesde)-diasCust(a.x.custDesde);
+  });
+  $('#lista-ubi').innerHTML=arr.length?arr.map(o=>ubiRow(o.x,o.i)).join(''):'<div class="empty-s">No hay carpetas con este filtro.</div>';
+  const viejas=EXP.filter(x=>!esOficina(x.ubic)&&diasCust(x.custDesde)>7).length;
+  const bdg=$('#bdg-ubi');if(viejas>0){bdg.style.display='flex';bdg.textContent=viejas;}else bdg.style.display='none';
+}
+function renderTurnos(){
+  if(!TURNOS.length){$('#lista-turnos').innerHTML='<div class="empty-s">No hay turnos próximos. Tocá "Nuevo turno" para agregar.</div>';return;}
+  const fmt=new Intl.DateTimeFormat('es-AR',{day:'numeric'}),mes=new Intl.DateTimeFormat('es-AR',{month:'short'});
+  $('#lista-turnos').innerHTML=TURNOS.map(t=>{
+    const dt=new Date(t.fecha+"T00:00:00"),hoy=t.fecha===todayISO(),hh=(t.hora||"").slice(0,5),sede=t.sede?t.sede.toUpperCase():"—",ab=t.abogado||"Sin asignar";
+    return `<div class="turno ${hoy?'hoy':''}">
+      <div class="t-when"><div class="d">${fmt.format(dt)}</div><div class="m">${mes.format(dt).replace('.','')}</div><div class="h">${hh}</div></div>
+      <div class="t-cli"><div class="nm">${titleCase((t.cliente_nombre||"")+" "+(t.cliente_apellido||""))}</div><div class="mo">${t.motivo||"Consulta"} · ${t.cliente_telefono||""}</div></div>
+      <div class="t-ab who"><span class="av">${initials(ab)}</span>${ab}</div>
+      <div class="t-meta"><span class="chip src">${sede}</span></div>
+      <button class="t-cancel" data-tid="${t.id}" title="Cancelar turno">×</button>
+    </div>`;
+  }).join('');
+}
+function payees(){
+  const out=[];const redes=EXP.filter(x=>x.referido&&/redes/i.test(x.referido));
+  if(redes.length)out.push({tipo:"redes",nombre:"Equipo de redes sociales",carpetas:redes});
+  const ext={};EXP.forEach(x=>{if(x.referido&&!/redes/i.test(x.referido)){const k=x.referido.toUpperCase();(ext[k]=ext[k]||[]).push(x);}});
+  Object.keys(ext).sort((a,b)=>ext[b].length-ext[a].length).forEach(k=>out.push({tipo:"ext",nombre:titleCase(k),carpetas:ext[k]}));
+  return out;
+}
+function renderPagos(){
+  const p=payees();
+  $('#lista-pagos').innerHTML=p.length?p.map(g=>`
+    <div class="pago ${g.tipo==='redes'?'redes':''}">
+      <div class="who2">${g.nombre}${g.tipo==='redes'?'<span class="sm">'+REDES_TEAM.join(' · ')+'</span>':'<span class="sm">Captador externo</span>'}</div>
+      <div class="ct">${g.carpetas.length}<span class="u2">carpeta${g.carpetas.length>1?'s':''}</span></div>
+      <div class="names">${g.carpetas.map(c=>titleCase(c.nombre)).join(' · ')}</div>
+    </div>`).join(''):'<div class="empty-s">Ninguna carpeta genera pago todavía.</div>';
+}
+function renderAseg(){
+  const grp={};ASEG.forEach(a=>{const k=titleCase(a.seguro||'Sin nombre');(grp[k]=grp[k]||[]).push(a);});
+  const keys=Object.keys(grp).sort((a,b)=>grp[b].length-grp[a].length);
+  $('#aseg-stats').innerHTML=keys.length?keys.map(k=>{
+    const arr=grp[k],n=arr.length;
+    const avg=f=>{const v=arr.map(x=>x[f]).filter(x=>x!=null&&x!=='');return v.length?Math.round(v.reduce((s,x)=>s+Number(x),0)/v.length):null;};
+    const of=avg('ofrecido_inicial'),ce=avg('cerrado'),di=avg('dias');
+    const mejora=(of&&ce)?Math.round((ce/of-1)*100):null;
+    return `<div class="aseg-st"><div class="nm">${k}</div>
+      <div class="ln"><span class="k">Ofrece (prom.)</span><span>${money(of)}</span></div>
+      <div class="ln"><span class="k">Cierra (prom.)</span><span style="color:var(--gold3)">${money(ce)}</span></div>
+      <div class="ln"><span class="k">Sube en mediación</span><span class="up">${mejora!=null?'+'+mejora+'%':'—'}</span></div>
+      <div class="ln"><span class="k">Tarda (prom.)</span><span>${di!=null?di+' días':'—'}</span></div>
+      <div class="cnt">${n} acuerdo${n>1?'s':''} cargado${n>1?'s':''}</div></div>`;
+  }).join(''):'<div class="empty-s" style="grid-column:1/-1">Todavía no cargaste acuerdos. Empezá abajo y en unas semanas vas a tener números para negociar.</div>';
+  $('#lista-aseg').innerHTML=ASEG.length?[...ASEG].sort((a,b)=>new Date(b.creado_at)-new Date(a.creado_at)).map(a=>{
+    const mej=(a.ofrecido_inicial&&a.cerrado)?'+'+Math.round((a.cerrado/a.ofrecido_inicial-1)*100)+'%':'—';
+    return `<div class="aseg-row"><span class="s">${titleCase(a.seguro||'—')}${a.tipo_caso?' · <span class="g">'+a.tipo_caso+'</span>':''}</span><span class="g">${money(a.ofrecido_inicial)} →</span><span class="s">${money(a.cerrado)}</span><span class="up">${mej}</span><span class="g">${a.dias!=null?a.dias+'d':'—'}</span></div>`;
+  }).join(''):'<div class="empty-s">Sin acuerdos cargados.</div>';
+}
+async function saveAcuerdo(){
+  const v=id=>$('#'+id).value.trim();
+  if(!v('sf-seguro')){toast("Poné al menos el nombre del seguro");return;}
+  const body={seguro:v('sf-seguro'),tipo_caso:v('sf-tipo')||null,ofrecido_inicial:v('sf-ofrecido')||null,cerrado:v('sf-cerrado')||null,dias:v('sf-dias')||null,expediente:v('sf-exp')||null,creado_por:ME.id};
+  try{
+    const r=await fetch(`${SUPABASE_URL}/rest/v1/acuerdos_seguros`,{method:'POST',headers:{...authHeaders(),"Content-Type":"application/json",Prefer:"return=representation"},body:JSON.stringify(body)});
+    if(!r.ok)throw new Error(r.status);
+    ASEG.unshift((await r.json())[0]);
+    ['sf-seguro','sf-tipo','sf-ofrecido','sf-cerrado','sf-dias','sf-exp'].forEach(i=>$('#'+i).value="");
+    renderAseg();toast("Acuerdo guardado");
+  }catch(e){toast("No se pudo guardar ("+e.message+")");}
+}
+
+/* ===== CALENDARIO (año/mes estables + fecha local) ===== */
+let calY,calM,calSel=todayISO();
+{const _n=new Date();calY=_n.getFullYear();calM=_n.getMonth();}
+const DOW=["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],MES=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+function renderCal(){
+  const y=calY,m=calM;
+  $('#cal-mname').innerHTML=`${MES[m]} <em>${y}</em>`;
+  const startDow=(new Date(y,m,1).getDay()+6)%7,dim=new Date(y,m+1,0).getDate(),ag=agLoad();
+  let h=DOW.map(d=>`<div class="cal-dow">${d}</div>`).join('');
+  for(let i=0;i<startDow;i++)h+='<div class="cal-day empty"></div>';
+  for(let d=1;d<=dim;d++){
+    const iso=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`,cnt=(ag[iso]||[]).length,cls=['cal-day'];
+    if(iso===todayISO())cls.push('today');if(iso===calSel)cls.push('sel');
+    h+=`<div class="${cls.join(' ')}" data-iso="${iso}">${d}${cnt?`<span class="dot ${cnt>1?'multi':''}"></span>`:''}</div>`;
+  }
+  $('#cal-grid').innerHTML=h;renderDayPanel();
+}
+function renderDayPanel(){
+  if(!calSel)return;const d=new Date(calSel+"T00:00:00");
+  $('#dp-h').innerHTML=`${d.getDate()} de <em>${MES[d.getMonth()].toLowerCase()}</em>`;
+  $('#dp-sub').textContent=new Intl.DateTimeFormat('es-AR',{weekday:'long'}).format(d).toUpperCase()+(calSel===todayISO()?' · HOY':'');
+  const tasks=agDay(calSel);
+  $('#dp-tasks').innerHTML=tasks.length?tasks.map((t,j)=>`<div class="task ${t.done?'done':''}"><span class="ck" data-ck="${j}"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="tt">${t.h?`<span class="th2">${t.h}</span>`:''}${t.t}</span><button class="del" data-del="${j}">×</button></div>`).join(''):'<div class="tempty">Nada anotado para este día.</div>';
+  $('#dp-add').style.display='flex';
+}
+
+/* ===== DRAWER expediente ===== */
+function detailHTML(x){
+  const row=(k,v)=>`<div class="drow"><span class="k">${k}</span><span class="v ${v?'':'empty'}">${v||'Sin cargar'}</span></div>`;
+  return `<div class="dr-blk"><div class="dbl">Cliente</div>${row('DNI',x.dni)}${row('Teléfono',x.tel)}${row('Domicilio',x.domicilio)}</div>
+    <div class="dr-blk"><div class="dbl">El hecho</div>${row('Fecha',x.fecha)}${row('Lugar',x.lugar)}</div>
+    <div class="dr-blk"><div class="dbl">Contraparte</div>${row('Demandado',x.demandado)}${row('Seguro',x.seguro)}</div>`;
+}
+function renderChecklist(){
+  const x=EXP[curIdx],c=x.checklist||{},done=CHECKLIST.filter(i=>c[i.k]).length;
+  $('#chk-count').textContent=`${done}/${CHECKLIST.length}`;
+  $('#chk-list').innerHTML=CHECKLIST.map(i=>`<div class="chkrow ${c[i.k]?'on':''}" data-chk="${i.k}"><span class="cbx"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>${i.t}</div>`).join('');
+}
+function renderRastreo(x){
+  if(!$('#ubic-list').children.length){$('#ubic-list').innerHTML=UBICACIONES.map(u=>`<option value="${u}">`).join('');$('#poder-list').innerHTML=POSEEDORES.map(p=>`<option value="${p}">`).join('');}
+  const fuera=!esOficina(x.ubic);
+  const now=$('#rt-now');now.textContent=fuera?'Fuera de la oficina':'En la oficina';now.classList.toggle('out',fuera);
+  const set=(id,v)=>{const el=$('#'+id);el.textContent=v||'—';el.classList.toggle('empty',!v);};
+  set('rt-ubic',x.ubic||'En la oficina');set('rt-poder',x.poder);set('rt-motivo',x.custMotivo);
+  set('rt-desde',x.custDesde?new Date(x.custDesde).toLocaleDateString('es-AR')+' · hace '+diasCust(x.custDesde)+' día'+(diasCust(x.custDesde)===1?'':'s'):null);
+  ['rt-in-ubic','rt-in-poder','rt-in-motivo'].forEach(i=>$('#'+i).value="");
+  $('#rt-hist').innerHTML='<div class="rt-hempty">Cargando historial…</div>';
+  fetchHistorial(x.id);
+}
+async function fetchHistorial(id){
+  try{
+    const r=await fetch(`${SUPABASE_URL}/rest/v1/custodia_carpeta?select=ubicacion,en_poder_de,motivo,registrado_nombre,creado_at&expediente_id=eq.${id}&order=creado_at.desc&limit=8`,{headers:authHeaders()});
+    const h=r.ok?await r.json():[];
+    if(curIdx===null||EXP[curIdx].id!==id)return;
+    $('#rt-hist').innerHTML=h.length?h.map(m=>`<div class="rt-hl"><span class="when">${new Date(m.creado_at).toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit'})}</span><span class="what"><b>${m.ubicacion||'—'}</b>${m.en_poder_de?' · '+m.en_poder_de:''}${m.motivo?' — '+m.motivo:''}${m.registrado_nombre?' ('+m.registrado_nombre.split(' ')[0]+')':''}</span></div>`).join(''):'<div class="rt-hempty">Sin movimientos registrados todavía.</div>';
+  }catch(e){$('#rt-hist').innerHTML='<div class="rt-hempty">No se pudo cargar el historial.</div>';}
+}
+async function registrarMovimiento(){
+  if(curIdx===null)return;const x=EXP[curIdx];
+  const ubic=$('#rt-in-ubic').value.trim(),poder=$('#rt-in-poder').value.trim(),motivo=$('#rt-in-motivo').value.trim();
+  if(!ubic&&!poder){toast("Poné al menos dónde está o quién la tiene");return;}
+  const ahora=new Date().toISOString();
+  try{
+    await fetch(`${SUPABASE_URL}/rest/v1/custodia_carpeta`,{method:'POST',headers:{...authHeaders(),"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify({expediente_id:x.id,ubicacion:ubic||null,en_poder_de:poder||null,motivo:motivo||null,registrado_por:ME.id,registrado_nombre:ME.nombre})});
+    await patchExp(x,{ubicacion:ubic||null,en_poder_de:poder||null,custodia_motivo:motivo||null,custodia_desde:ahora});
+    Object.assign(x,{ubic:ubic||null,poder:poder||null,custMotivo:motivo||null,custDesde:ahora,act:todayISO()});
+    renderRastreo(x);renderUbic();renderInicio();
+    toast("Movimiento registrado");
+  }catch(e){toast("No se pudo registrar ("+e.message+")");}
+}
+function renderGastos(x){
+  if(!$('#gasto-list').children.length)$('#gasto-list').innerHTML=GASTOS_COMUNES.map(g=>`<option value="${g}">`).join('');
+  const g=Array.isArray(x.gastos)?x.gastos:[];
+  const total=g.reduce((s,i)=>s+Number(i.monto||0),0);
+  $('#g-total').textContent=money(total);
+  $('#g-list').innerHTML=g.length?g.map(i=>`<div class="grow"><span class="gc">${i.concepto||'—'}<div class="gd">${i.fecha?new Date(i.fecha+'T00:00:00').toLocaleDateString('es-AR'):''}</div></span><span class="gm">${money(i.monto)}</span><button class="gx" data-gdel="${i.id}">×</button></div>`).join(''):'<div class="gempty">Sin gastos cargados todavía.</div>';
+}
+async function addGasto(){
+  if(curIdx===null)return;const x=EXP[curIdx];
+  const concepto=$('#g-concepto').value.trim(),monto=$('#g-monto').value.trim();
+  if(!concepto||!monto){toast("Poné concepto y monto");return;}
+  x.gastos=Array.isArray(x.gastos)?x.gastos:[];
+  x.gastos.push({id:'g'+Date.now(),concepto,monto:Number(monto),fecha:todayISO()});
+  $('#g-concepto').value="";$('#g-monto').value="";
+  renderGastos(x);
+  try{await patchExp(x,{gastos:x.gastos});toast("Gasto sumado");}catch(e){toast("No se pudo guardar ("+e.message+")");}
+}
+async function delGasto(id){
+  if(curIdx===null)return;const x=EXP[curIdx];
+  x.gastos=(x.gastos||[]).filter(i=>i.id!==id);
+  renderGastos(x);
+  try{await patchExp(x,{gastos:x.gastos});}catch(e){toast("No se pudo borrar ("+e.message+")");}
+}
+function openDrawer(i){
+  curIdx=i;const x=EXP[i];
+  $('#dr-nombre').textContent=titleCase(x.nombre);
+  $('#dr-sub').textContent=(x.referido?'Vino por '+titleCase(x.referido):'Captación directa')+' · alta '+(x.alta?new Date(x.alta+"T00:00:00").toLocaleDateString('es-AR'):'—');
+  renderChecklist();
+  renderRastreo(x);
+  renderGastos(x);
+  $('#dr-detail').innerHTML=detailHTML(x);
+  $('#f-resp').innerHTML='<option value="">— Sin asignar —</option>'+PERFILES.map(p=>`<option value="${p.id}" ${p.id===x.resp?'selected':''}>${p.nombre}</option>`).join('')+`<option value="__otro__" ${(!x.resp&&x.respLibre)?'selected':''}>+ Otro abogado (escribir)…</option>`;
+  $('#f-resp-otro-wrap').style.display=(!x.resp&&x.respLibre)?'block':'none';
+  $('#f-resp-otro').value=x.respLibre||"";
+  $('#f-etapa').innerHTML='<option value="">— Sin etapa —</option>'+ETAPAS.map(e=>`<option ${e===x.etapa?'selected':''}>${e}</option>`).join('');
+  $('#f-estado').innerHTML=ESTADOS.map(e=>`<option ${e===x.estado?'selected':''}>${e}</option>`).join('');
+  $('#f-referido').value=x.referido||"";
+  $('#dr-open').href=x.id?`https://estudiolena.github.io/expedientes/#${x.id}`:"https://estudiolena.github.io/expedientes/";
+  const cobro=/acuerdo|cobro/i.test(x.etapa||"")||/cerrado/i.test(x.estado||"");
+  $('#dr-referido').style.display=cobro?'inline-flex':'none';
+  $('#scrim').classList.add('on');$('#drawer').classList.add('on');
+}
+function closeDrawer(){$('#scrim').classList.remove('on');$('#drawer').classList.remove('on');curIdx=null;}
+$('#f-resp').onchange=e=>{$('#f-resp-otro-wrap').style.display=e.target.value==='__otro__'?'block':'none';};
+async function patchExp(x,patch){
+  const r=await fetch(`${SUPABASE_URL}/rest/v1/expedientes?id=eq.${x.id}`,{method:'PATCH',headers:{...authHeaders(),"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify({...patch,actualizado_at:new Date().toISOString(),actualizado_por:ME.id})});
+  if(!r.ok)throw new Error(r.status);
+}
+async function saveDrawer(){
+  if(curIdx===null)return;const x=EXP[curIdx],sel=$('#f-resp').value;
+  let asignado=null,respLibre=null;
+  if(sel==='__otro__')respLibre=$('#f-resp-otro').value.trim()||null;else if(sel)asignado=sel;
+  const patch={asignado_a:asignado,responsable_nombre:respLibre,etapa:$('#f-etapa').value||null,estado:$('#f-estado').value,referido:$('#f-referido').value||null};
+  Object.assign(x,{resp:asignado,respLibre:respLibre,etapa:patch.etapa,estado:patch.estado,referido:patch.referido,act:todayISO()});
+  try{await patchExp(x,patch);toast("Cambios guardados");}catch(e){toast("No se pudo guardar ("+e.message+")");}
+  renderInicio();renderExp();renderPagos();closeDrawer();
+}
+async function toggleChk(k){
+  const x=EXP[curIdx];x.checklist=x.checklist||{};x.checklist[k]=!x.checklist[k];x.act=todayISO();
+  renderChecklist();
+  try{await patchExp(x,{checklist:x.checklist});}catch(e){toast("No se pudo guardar el checklist");}
+}
+async function contactoReal(){
+  if(curIdx===null)return;const x=EXP[curIdx];x.act=todayISO();
+  try{await patchExp(x,{});toast("Contacto registrado hoy");renderInicio();renderExp();}catch(e){toast("No se pudo registrar ("+e.message+")");}
+}
+function pedirReferido(){
+  const x=EXP[curIdx];const msg=`Hola ${titleCase((x.nombre||'').split(' ')[0])}, ¡un gusto haber trabajado con vos! Si conocés a alguien que tuvo un accidente y necesite asesoramiento, lo podemos ayudar. Te dejamos a disposición. — Estudio Lena & Asociados`;
+  const link=waLink(x.tel,msg);if(link)window.open(link,'_blank');else toast("La carpeta no tiene teléfono cargado");
+}
+function linkSeguimiento(){
+  const x=EXP[curIdx];const link=`${SEGUIMIENTO_BASE}?id=${x.id}`;
+  if(navigator.clipboard)navigator.clipboard.writeText(link).then(()=>toast("Link de seguimiento copiado"),()=>prompt("Copiá el link:",link));
+  else prompt("Copiá el link:",link);
+}
+
+/* ===== TURNOS ===== */
+function openTurno(){
+  $('#nt-nombre').value="";$('#nt-apellido').value="";$('#nt-tel').value="";$('#nt-fecha').value=todayISO();$('#nt-hora').value="";$('#nt-motivo').value="";$('#nt-sede').value="moron";
+  $('#nt-abogado').innerHTML='<option value="">— Sin asignar —</option>'+USUARIOS.map(u=>`<option value="${u.id}">${u.nombre}</option>`).join('');
+  $('#t-scrim').classList.add('on');$('#t-drawer').classList.add('on');
+}
+function closeTurno(){$('#t-scrim').classList.remove('on');$('#t-drawer').classList.remove('on');}
+function masUnaHora(hhmm){const [H,M]=hhmm.split(':').map(Number);const d=new Date(2000,0,1,H,M);d.setHours(d.getHours()+1);return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
+async function saveTurno(){
+  const v=id=>$('#'+id).value.trim();
+  if(!v('nt-nombre')||!v('nt-fecha')||!v('nt-hora')){toast("Completá nombre, fecha y hora");return;}
+  try{
+    const dR=await fetch(`${SUPABASE_URL}/rest/v1/disponibilidad`,{method:'POST',headers:{...authHeaders(),"Content-Type":"application/json",Prefer:"return=representation"},body:JSON.stringify({fecha:v('nt-fecha'),hora_inicio:v('nt-hora'),hora_fin:masUnaHora(v('nt-hora')),ocupado:true})});
+    if(!dR.ok)throw new Error('disp '+dR.status);
+    const dispId=(await dR.json())[0].id;
+    const tR=await fetch(`${SUPABASE_URL}/rest/v1/turnos`,{method:'POST',headers:{...authHeaders(),"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify({disponibilidad_id:dispId,cliente_nombre:v('nt-nombre'),cliente_apellido:v('nt-apellido'),cliente_telefono:v('nt-tel'),motivo:v('nt-motivo'),sede:$('#nt-sede').value||null,abogado_asignado_id:$('#nt-abogado').value||null,estado:'confirmado',tipo_creacion:'empleado'})});
+    if(!tR.ok)throw new Error('turno '+tR.status);
+    toast("Turno agregado");closeTurno();await loadLive();renderTurnos();renderInicio();
+  }catch(e){toast("No se pudo agregar ("+e.message+")");}
+}
+async function cancelTurno(id){
+  if(!confirm("¿Cancelar este turno?"))return;
+  try{
+    const r=await fetch(`${SUPABASE_URL}/rest/v1/turnos?id=eq.${id}`,{method:'PATCH',headers:{...authHeaders(),"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify({estado:'cancelado'})});
+    if(!r.ok)throw new Error(r.status);
+    toast("Turno cancelado");TURNOS=TURNOS.filter(t=>t.id!==id);renderTurnos();renderInicio();
+  }catch(e){toast("No se pudo cancelar ("+e.message+")");}
+}
+
+/* ===== TELEGRAM ===== */
+async function sendTelegram(){
+  toast("Enviando resumen…");
+  try{
+    const r=await fetch(`${SUPABASE_URL}/functions/v1/resumen-diario`,{method:'POST',headers:{...authHeaders(),"Content-Type":"application/json"},body:JSON.stringify({})});
+    const j=await r.json();
+    if(!r.ok||j.ok===false)throw new Error(j.error||r.status);
+    toast(j.enviado?"Resumen enviado a tu Telegram":"No tenés Telegram configurado en tu perfil");
+  }catch(e){toast("No se pudo enviar ("+e.message+")");}
+}
+
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(window._tt);window._tt=setTimeout(()=>t.classList.remove('on'),2800);}
+
+/* ===== BUSCADOR + AYUDA ===== */
+const FEATURES=[
+  {kw:"inicio resumen tablero panel principal", sec:"inicio", t:"Inicio", d:"El resumen del día: tu agenda, los turnos de hoy, los pendientes del estudio y las carpetas que necesitan atención."},
+  {kw:"expedientes carpetas casos clientes buscar", sec:"expedientes", t:"Expedientes", d:"Todas las carpetas del estudio. Tocá una para ver el detalle, cambiar el abogado responsable, la etapa y el estado."},
+  {kw:"ubicacion rastreador donde esta carpeta fisica quien la tiene", sec:"ubicacion", t:"Ubicación de carpetas", d:"Dónde está físicamente cada carpeta, quién la tiene y con qué motivo. Las que salieron de la oficina aparecen primero; en rojo las que están afuera hace más de una semana."},
+  {kw:"agenda calendario tareas recordatorios personal", sec:"agenda", t:"Mi agenda", d:"Tu calendario personal. Tocá un día para anotar tareas; lo de hoy aparece en Inicio."},
+  {kw:"turnos citas clientes nuevo turno cancelar", sec:"turnos", t:"Turnos", d:"Los próximos turnos del estudio. Podés agregar uno nuevo o cancelarlo desde el botón ×."},
+  {kw:"aseguradoras acuerdos mediacion montos negociacion seguros", sec:"aseguradoras", t:"Aseguradoras", d:"Cargá cada acuerdo cerrado para saber cuánto ofrece y en cuánto cierra cada compañía. Te da promedios para negociar con números."},
+  {kw:"pagos captadores redes referidos comision quien trajo", sec:"pagos", t:"Pagos a captadores", d:"Carpetas agrupadas por quién las trajo, para saber a quién hay que pagarle."},
+  {kw:"gastos tasa pericia oficios bono ley expensas", sec:"expedientes", drawer:true, t:"Gastos del expediente", d:"Dentro de cada carpeta (Expedientes) cargás los gastos: tasa, pericias, oficios. Te suma el total automáticamente."},
+  {kw:"checklist prueba temprana parte policial testigos fotos", sec:"expedientes", drawer:true, t:"Checklist de prueba", d:"Dentro de cada carpeta, los 9 ítems de prueba temprana para no perder un caso por falta de prueba."},
+  {kw:"seguimiento cliente link etapa compartir", sec:"expedientes", drawer:true, t:"Link de seguimiento", d:"Dentro de la carpeta copiás un link para que el cliente vea en qué etapa va, sin datos sensibles."},
+  {kw:"referido recomendacion post cobro whatsapp", sec:"expedientes", drawer:true, t:"Pedir referido", d:"Cuando la carpeta está en cobro, un botón arma el WhatsApp para pedirle al cliente que te recomiende."},
+  {kw:"contacto registre hoy termometro dias sin movimiento", sec:"expedientes", drawer:true, t:"Registré contacto hoy", d:"Botón en la carpeta que resetea el termómetro de días sin movimiento cuando atendiste por afuera."},
+  {kw:"telegram resumen diario aviso mensaje", sec:"inicio", drawer:true, t:"Resumen a Telegram", d:"En Inicio, el botón manda el resumen del día a tu Telegram. Además llega solo cada mañana a las 8."}
+];
+function goSection(s){
+  document.querySelectorAll('.nav-i').forEach(x=>x.classList.toggle('on',x.dataset.s===s));
+  document.querySelectorAll('.section').forEach(x=>x.classList.toggle('on',x.id==='s-'+s));
+  if(s==='agenda')renderCal();
+  if(s==='ubicacion')renderUbic();
+  try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){}
+}
+function doSearch(q){
+  const res=$('#gsearch-res');q=(q||'').trim().toLowerCase();
+  if(!q){res.classList.remove('on');res.innerHTML='';return;}
+  const norm=s=>(s||'').toLowerCase();
+  const carp=EXP.map((x,i)=>({x,i})).filter(o=>norm(o.x.nombre).includes(q)||norm(o.x.dni).includes(q)).slice(0,6);
+  const funcs=FEATURES.filter(f=>f.kw.includes(q)||norm(f.t).includes(q)||norm(f.d).includes(q));
+  let h='';
+  if(carp.length)h+='<div class="gs-cat">Carpetas</div>'+carp.map(o=>`<div class="gs-item" data-open="${o.i}"><div class="gs-line"><svg viewBox="0 0 24 24"><path d="M4 4h11l5 5v11H4z"/><path d="M14 4v6h6"/></svg>${titleCase(o.x.nombre)}<span class="gs-sub">${o.x.dni?'DNI '+o.x.dni:''}</span></div></div>`).join('');
+  if(funcs.length)h+='<div class="gs-cat">Funciones</div>'+funcs.map(f=>`<div class="gs-item" data-feat="${f.sec}"${f.drawer?' data-fdraw="1"':''}><b>${f.t}</b><span class="gs-desc">${f.d}</span></div>`).join('');
+  res.innerHTML=h||'<div class="gs-empty">Nada encontrado. Probá con el nombre del cliente, el DNI o una función (gastos, turnos, ubicación…).</div>';
+  res.classList.add('on');
+}
+function cerrarBuscador(){$('#gsearch-res').classList.remove('on');}
+function renderHelp(){
+  const secs=FEATURES.filter(f=>!f.drawer),dentro=FEATURES.filter(f=>f.drawer);
+  const item=f=>`<div class="help-i" data-feat="${f.sec}"${f.drawer?' data-fdraw="1"':''}><div class="hi-t">${f.t}</div><div class="hi-d">${f.d}</div></div>`;
+  $('#help-content').innerHTML=
+    '<div class="help-blk"><div class="hb-t">Secciones del menú</div>'+secs.map(item).join('')+'</div>'+
+    '<div class="help-blk"><div class="hb-t">Dentro de cada carpeta</div>'+dentro.map(item).join('')+'</div>';
+}
+function openHelp(){renderHelp();$('#help-scrim').classList.add('on');$('#help-drawer').classList.add('on');}
+function closeHelp(){$('#help-scrim').classList.remove('on');$('#help-drawer').classList.remove('on');}
+
+/* ===== EVENTS ===== */
+document.querySelectorAll('.nav-i').forEach(b=>b.onclick=()=>goSection(b.dataset.s));
+document.querySelectorAll('#s-expedientes .fpill').forEach(b=>b.onclick=()=>{document.querySelectorAll('#s-expedientes .fpill').forEach(x=>x.classList.remove('on'));b.classList.add('on');filt=b.dataset.f;renderExp();});
+document.querySelectorAll('#s-ubicacion .fpill').forEach(b=>b.onclick=()=>{document.querySelectorAll('#s-ubicacion .fpill').forEach(x=>x.classList.remove('on'));b.classList.add('on');filtU=b.dataset.fu;renderUbic();});
+document.addEventListener('click',e=>{
+  const tc=e.target.closest('.t-cancel');if(tc){e.stopPropagation();cancelTurno(tc.dataset.tid);return;}
+  const gopen=e.target.closest('[data-open]');if(gopen){openDrawer(+gopen.dataset.open);$('#gsearch').value="";cerrarBuscador();return;}
+  const gfeat=e.target.closest('[data-feat]');if(gfeat){const sec=gfeat.dataset.feat,draw=gfeat.dataset.fdraw;goSection(sec);$('#gsearch').value="";cerrarBuscador();closeHelp();if(draw)toast(sec==='inicio'?'Está en Inicio, botón "Resumen a Telegram"':'Se usa dentro de cada carpeta: tocá un expediente');return;}
+  const chk=e.target.closest('[data-chk]');if(chk){toggleChk(chk.dataset.chk);return;}
+  const gd=e.target.closest('[data-gdel]');if(gd){delGasto(gd.dataset.gdel);return;}
+  const urow=e.target.closest('.ubi');if(urow){openDrawer(+urow.dataset.i);return;}
+  const row=e.target.closest('.exp');if(row){openDrawer(+row.dataset.i);return;}
+  const day=e.target.closest('.cal-day[data-iso]');if(day){calSel=day.dataset.iso;renderCal();return;}
+  const ck=e.target.closest('[data-ck]');if(ck){const j=+ck.dataset.ck,arr=agDay(calSel);arr[j].done=!arr[j].done;agSetDay(calSel,arr);renderCal();renderInicio();return;}
+  const del=e.target.closest('[data-del]');if(del){const j=+del.dataset.del,arr=agDay(calSel);arr.splice(j,1);agSetDay(calSel,arr);renderCal();renderInicio();return;}
+  const tck=e.target.closest('[data-today]');if(tck){const j=+tck.dataset.today,iso=todayISO(),arr=agDay(iso);arr[j].done=!arr[j].done;agSetDay(iso,arr);renderInicio();return;}
+});
+$('#dr-x').onclick=closeDrawer;$('#scrim').onclick=closeDrawer;$('#dr-save').onclick=saveDrawer;$('#logout').onclick=logout;
+$('#gsearch').addEventListener('input',e=>doSearch(e.target.value));
+$('#gsearch').addEventListener('keydown',e=>{if(e.key==='Escape'){cerrarBuscador();e.target.blur();}});
+$('#help-btn').onclick=openHelp;$('#help-x').onclick=closeHelp;$('#help-scrim').onclick=closeHelp;
+document.addEventListener('click',e=>{if(!e.target.closest('.gsearch-wrap'))cerrarBuscador();});
+$('#dr-contacto').onclick=contactoReal;$('#dr-referido').onclick=pedirReferido;$('#dr-seg').onclick=linkSeguimiento;$('#rt-save').onclick=registrarMovimiento;$('#g-add').onclick=addGasto;
+$('#t-new').onclick=openTurno;$('#t-x').onclick=closeTurno;$('#t-scrim').onclick=closeTurno;$('#t-save').onclick=saveTurno;
+$('#sf-save').onclick=saveAcuerdo;$('#tg-btn').onclick=sendTelegram;
+$('#cal-prev').onclick=()=>{calM--;if(calM<0){calM=11;calY--;}renderCal();};
+$('#cal-next').onclick=()=>{calM++;if(calM>11){calM=0;calY++;}renderCal();};
+$('#cal-today').onclick=()=>{const _n=new Date();calY=_n.getFullYear();calM=_n.getMonth();calSel=todayISO();renderCal();};
+$('#dp-save-task').onclick=()=>{
+  const txt=$('#dp-text').value.trim();if(!txt)return;
+  const arr=agDay(calSel);arr.push({t:txt,h:$('#dp-time').value||"",done:false});
+  arr.sort((a,b)=>(a.h||"99").localeCompare(b.h||"99"));
+  agSetDay(calSel,arr);$('#dp-text').value="";$('#dp-time').value="";renderCal();renderInicio();
+};
+$('#dp-text').addEventListener('keydown',e=>{if(e.key==='Enter')$('#dp-save-task').click();});
+$('#l-btn').onclick=submitLogin;
+$('#l-pass').addEventListener('keydown',e=>{if(e.key==='Enter')submitLogin();});
+async function submitLogin(){
+  const email=$('#l-email').value.trim(),pass=$('#l-pass').value;
+  if(!email||!pass){$('#l-err').textContent="Completá correo y contraseña.";return;}
+  $('#l-btn').disabled=true;$('#l-btn').textContent="Ingresando…";$('#l-err').textContent="";
+  try{await doLogin(email,pass);await startApp();}
+  catch(e){$('#l-err').textContent=e.message;$('#l-btn').disabled=false;$('#l-btn').textContent="Ingresar";}
+}
+
+async function loadLive(){
+  const h=authHeaders();
+  const [exR,tuR,asR]=await Promise.all([
+    fetch(`${SUPABASE_URL}/rest/v1/expedientes?select=id,nombre,etapa,estado,asignado_a,responsable_nombre,referido,actualizado_at,creado_at,dni,tel,domicilio,demandado,seguro,fecha,lugar,checklist,ubicacion,en_poder_de,custodia_motivo,custodia_desde,gastos&order=creado_at.desc`,{headers:h}),
+    fetch(`${SUPABASE_URL}/rest/v1/turnos?select=id,cliente_nombre,cliente_apellido,cliente_telefono,motivo,estado,sede,abogado_asignado_id,disponibilidad_id&estado=eq.confirmado`,{headers:h}),
+    fetch(`${SUPABASE_URL}/rest/v1/acuerdos_seguros?select=*&order=creado_at.desc`,{headers:h})
+  ]);
+  if(!exR.ok)throw new Error("expedientes "+exR.status);
+  EXP=(await exR.json()).map(e=>({id:e.id,nombre:e.nombre,etapa:e.etapa,estado:e.estado||"En trámite",resp:e.asignado_a,respLibre:e.responsable_nombre,referido:e.referido,act:(e.actualizado_at||"").slice(0,10),alta:(e.creado_at||"").slice(0,10),dni:e.dni,tel:e.tel,domicilio:e.domicilio,demandado:e.demandado,seguro:e.seguro,fecha:e.fecha,lugar:e.lugar,checklist:e.checklist||{},ubic:e.ubicacion,poder:e.en_poder_de,custMotivo:e.custodia_motivo,custDesde:e.custodia_desde,gastos:Array.isArray(e.gastos)?e.gastos:[]}));
+  try{ASEG=asR.ok?await asR.json():[];}catch(e){ASEG=[];}
+  try{
+    const tu=await tuR.json();
+    const dispIds=[...new Set(tu.map(t=>t.disponibilidad_id).filter(Boolean))],abIds=[...new Set(tu.map(t=>t.abogado_asignado_id).filter(Boolean))];
+    let disp={},us={};
+    if(dispIds.length){(await (await fetch(`${SUPABASE_URL}/rest/v1/disponibilidad?select=id,fecha,hora_inicio&id=in.(${dispIds.join(',')})`,{headers:h})).json()).forEach(d=>disp[d.id]=d);}
+    if(abIds.length){(await (await fetch(`${SUPABASE_URL}/rest/v1/usuarios?select=id,nombre&id=in.(${abIds.join(',')})`,{headers:h})).json()).forEach(u=>us[u.id]=u.nombre);}
+    TURNOS=tu.map(t=>({...t,fecha:disp[t.disponibilidad_id]?.fecha,hora:disp[t.disponibilidad_id]?.hora_inicio,abogado:us[t.abogado_asignado_id]})).filter(t=>t.fecha&&t.fecha>=todayISO()).sort((a,b)=>(a.fecha+a.hora).localeCompare(b.fecha+b.hora));
+  }catch(e){TURNOS=[];}
+}
+function saludo(){const h=new Date().getHours();if(h<6)return"Buenas noches";if(h<13)return"Buenos días";if(h<20)return"Buenas tardes";return"Buenas noches";}
+function applyMe(){
+  const greetName=/pablo\s+bonapelch/i.test(ME.nombre)?"Dr. Bonapelch":(ME.nombre.split(' ')[0]||"de vuelta");
+  $('#greet').innerHTML=`${saludo()}, <em>${greetName}.</em>`;
+  $('#me-nombre').textContent=ME.nombre||"Usuario";
+  $('#me-rol').textContent=(ME.rol||"").charAt(0).toUpperCase()+(ME.rol||"").slice(1);
+  $('#me-mono').textContent=initials(ME.nombre)||"··";
+}
+async function startApp(){
+  $('#hoy').textContent=fechaLarga(new Date());
+  await fetchMe();applyMe();await loadLive();
+  renderInicio();renderExp();renderUbic();renderTurnos();renderAseg();renderPagos();renderCal();
+  $('#login').style.display='none';$('#app').classList.add('on');
+}
+async function boot(){
+  const saved=localStorage.getItem("sb_session");
+  if(saved){
+    try{
+      SESSION=JSON.parse(saved);
+      const test=await fetch(`${SUPABASE_URL}/auth/v1/user`,{headers:authHeaders()});
+      if(!test.ok){if(SESSION.refresh_token)await refreshSession(SESSION.refresh_token);}
+      if(SESSION&&SESSION.access_token){await startApp();return;}
+    }catch(e){localStorage.removeItem("sb_session");}
+  }
+}
+boot();
+</script>
+</body>
+</html>
