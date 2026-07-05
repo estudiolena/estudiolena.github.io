@@ -388,6 +388,22 @@ main{flex:1;min-width:0;min-height:100vh;position:relative}
 .chip.ubic{color:#8aa0e0;border-color:rgba(120,130,170,.35);background:rgba(30,51,128,.14)}
 .chip.ubic.office{color:var(--ok);border-color:rgba(92,174,120,.3);background:rgba(92,174,120,.08)}
 
+/* AUDIENCIAS / eventos */
+.evento{display:grid;grid-template-columns:78px 1fr 110px;align-items:center;gap:1rem;background:var(--bg2);padding:1.05rem 1.3rem;border-left:2px solid var(--border);cursor:pointer;transition:background .15s}
+.evento:hover{background:var(--navy)}
+.evento.hoy{border-left-color:var(--gold)}
+.evento.pasado{opacity:.55}
+.ev-when{text-align:center}
+.ev-when .d{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:600;color:var(--gold2);line-height:1}
+.ev-when .m{font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);margin-top:2px}
+.ev-when .h{font-size:.78rem;color:var(--white2);margin-top:5px}
+.ev-t{font-size:.98rem;color:var(--white);display:flex;align-items:center;gap:.55rem;flex-wrap:wrap}
+.ev-sub{font-size:.72rem;color:var(--gray);margin-top:5px;letter-spacing:.02em}
+.chip.medi{color:var(--gold3);border-color:var(--border2);background:rgba(201,168,76,.12)}
+.chip.aud{color:#8aa0e0;border-color:rgba(120,130,170,.35);background:rgba(30,51,128,.16)}
+.ev-in{justify-self:end;text-align:right;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold2)}
+.ev-in.soon{color:#e8917a} .ev-in.past{color:var(--gray)}
+
 .field{margin-bottom:1.2rem}
 .field.row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 .field label{display:block;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold2);margin-bottom:.5rem}
@@ -454,6 +470,7 @@ main{flex:1;min-width:0;min-height:100vh;position:relative}
     <button class="nav-i on" data-s="inicio"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h14V10"/></svg>Inicio</button>
     <button class="nav-i" data-s="expedientes"><svg viewBox="0 0 24 24"><path d="M4 4h11l5 5v11H4z"/><path d="M14 4v6h6"/></svg>Expedientes</button>
     <button class="nav-i" data-s="ubicacion"><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.6-7-11a7 7 0 1 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Ubicación de carpetas<span class="badge" id="bdg-ubi" style="display:none;background:var(--cold)">0</span></button>
+    <button class="nav-i" data-s="audiencias"><svg viewBox="0 0 24 24"><path d="M3 6h18M7 3v3M17 3v3"/><rect x="3" y="6" width="18" height="15" rx="1"/><path d="M8 13l2.5 2.5L16 10"/></svg>Audiencias<span class="badge" id="bdg-aud" style="display:none">0</span></button>
     <button class="nav-i" data-s="agenda"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="1"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>Mi agenda</button>
     <button class="nav-i" data-s="turnos"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Turnos</button>
     <button class="nav-i" data-s="aseguradoras"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.5 8 8 11 4.5-3 8-6 8-11V5z"/></svg>Aseguradoras</button>
@@ -519,6 +536,17 @@ main{flex:1;min-width:0;min-height:100vh;position:relative}
       <button class="fpill" data-f="nuevas">Nuevas (7 días)</button>
     </div>
     <div class="cards" id="lista-exp"></div>
+  </section>
+
+  <section class="section" id="s-audiencias">
+    <div class="shead"><div><span class="tag">Agenda judicial</span><h2 class="serif">Audiencias y <em>mediaciones.</em></h2><div class="sd">Todos los eventos que cargan las carpetas en el panel de expedientes: mediaciones, audiencias y demás. De quién es, cuándo, a qué hora y dónde. Tocá cualquiera para abrir la carpeta.</div></div></div>
+    <div class="filters">
+      <button class="fpill on" data-fe="proximas">Próximas</button>
+      <button class="fpill" data-fe="semana">Esta semana</button>
+      <button class="fpill" data-fe="pasadas">Pasadas</button>
+      <button class="fpill" data-fe="todas">Todas</button>
+    </div>
+    <div class="cards" id="lista-eventos"></div>
   </section>
 
   <section class="section" id="s-ubicacion">
@@ -732,7 +760,7 @@ const UBICACIONES=["Oficina Morón (9 de Julio 172)","Oficina CABA (Callao 433)"
 const POSEEDORES=["Andrea Galvalisi","Carlos Sabatini","Gabriela Telebak","Lautaro Antuña","Matías Mehlhorn","Pablo Bonapelch","Santiago","Benjamín","Viviana","Cliente","Cadete / correo","Recepción"];
 const GASTOS_COMUNES=["Tasa de justicia","Bono ley (derecho fijo)","Anticipo de pericia médica","Anticipo de pericia mecánica","Anticipo de pericia accidentológica","Diligenciamiento de oficios","Cédulas / mandamientos","Honorarios de mediación","Fotocopias / testimonios","Movilidad"];
 const esOficina=u=>!u||/oficina|archivo|recep/i.test(u);
-let EXP=[],TURNOS=[],ASEG=[],HIST=[],curIdx=null,filt="all",filtU="all",SESSION=null,ME={id:null,nombre:"",rol:""};
+let EXP=[],TURNOS=[],ASEG=[],HIST=[],EVENTOS=[],curIdx=null,filt="all",filtU="all",filtE="proximas",SESSION=null,ME={id:null,nombre:"",rol:""};
 const $=s=>document.querySelector(s);
 const perfilName=id=>{const p=PERFILES.find(x=>x.id===id);return p?p.nombre:null;};
 const respName=x=>perfilName(x.resp)||x.respLibre||null;
@@ -799,7 +827,8 @@ function renderInicio(){
     <div class="kpi go" data-kpi="activas"><div class="v">${total}</div><div class="l">Carpetas activas</div><span class="kgo">Ver todas ›</span></div>
     <div class="kpi alert go" data-kpi="sin"><div class="v">${sin}</div><div class="l">Sin responsable</div><span class="kgo">${sin>0?'Asignar ahora ›':'Ver ›'}</span></div>
     <div class="kpi alert go" data-kpi="colgadas"><div class="v">${frias}</div><div class="l">Colgadas · +30 días</div><span class="kgo">${frias>0?'Revisar ›':'Ver ›'}</span></div>
-    <div class="kpi go" data-kpi="turnos"><div class="v">${TURNOS.filter(t=>t.fecha===todayISO()).length}</div><div class="l">Turnos hoy</div><span class="kgo">Ver agenda ›</span></div>`;
+    <div class="kpi go" data-kpi="turnos"><div class="v">${TURNOS.filter(t=>t.fecha===todayISO()).length}</div><div class="l">Turnos hoy</div><span class="kgo">Ver agenda ›</span></div>
+    <div class="kpi go" data-kpi="audiencias"><div class="v">${EVENTOS.filter(e=>e.fecha>=todayISO()).length}</div><div class="l">Audiencias próximas</div><span class="kgo">Ver todas ›</span></div>`;
   const iso=todayISO();
   $('#today-date').textContent=fechaLarga(new Date());
   const tasks=agDay(iso);
@@ -809,6 +838,9 @@ function renderInicio(){
   const al=[];
   if(sin>0)al.push(`<div class="titem warn go" data-kpi="sin">${sin} carpeta${sin>1?'s':''} sin responsable<span class="tk">asignar ›</span></div>`);
   if(frias>0)al.push(`<div class="titem warn go" data-kpi="colgadas">${frias} carpeta${frias>1?'s':''} colgada${frias>1?'s':''} +30 días<span class="tk">revisar ›</span></div>`);
+  const prox=EVENTOS.filter(e=>e.fecha>=iso).sort((a,b)=>(a.fecha+(a.hora||'')).localeCompare(b.fecha+(b.hora||'')));
+  if(prox[0]){const e=prox[0],exp=EXP.find(x=>x.id===e.expediente_id),cli=exp?titleCase(exp.nombre):titleCase(e.titulo||'carpeta'),d=diasAEvento(e.fecha);
+    al.push(`<div class="titem gold go" data-kpi="audiencias">${tipoEvento(e)} · ${cli}<span class="tk">${labelDias(d)}${e.hora?' '+e.hora.slice(0,5):''} ›</span></div>`);}
   $('#today-alertas').innerHTML=al.length?al.join(''):'<div class="tempty">Todo al día.</div>';
   const aten=EXP.map((x,i)=>({x,i})).filter(o=>!respName(o.x)||dias(o.x.act)>T_COLD).sort((a,b)=>dias(b.x.act)-dias(a.x.act));
   $('#atencion').innerHTML=aten.length?aten.map(o=>expRow(o.x,o.i)).join(''):'<div class="empty-s">Todo al día.</div>';
@@ -851,6 +883,39 @@ function renderUbic(){
   $('#lista-ubi').innerHTML=arr.length?arr.map(o=>ubiRow(o.x,o.i)).join(''):'<div class="empty-s">No hay carpetas con este filtro.</div>';
   const viejas=EXP.filter(x=>!esOficina(x.ubic)&&diasCust(x.custDesde)>7).length;
   const bdg=$('#bdg-ubi');if(viejas>0){bdg.style.display='flex';bdg.textContent=viejas;}else bdg.style.display='none';
+}
+function tipoEvento(e){
+  const t=((e.titulo||'')+' '+(e.tipo||'')+' '+(e.descripcion||'')).toLowerCase();
+  if(t.includes('mediac'))return 'Mediación';
+  if(t.includes('audiencia'))return 'Audiencia';
+  if(t.includes('pericia'))return 'Pericia';
+  return (e.tipo||'Evento').charAt(0).toUpperCase()+(e.tipo||'Evento').slice(1);
+}
+function diasAEvento(fecha){return Math.round((new Date(fecha+'T00:00:00')-new Date(todayISO()+'T00:00:00'))/86400000);}
+function labelDias(d){if(d===0)return'Hoy';if(d===1)return'Mañana';if(d>1)return'En '+d+' días';if(d===-1)return'Ayer';return'Hace '+Math.abs(d)+' días';}
+function eventoRow(e){
+  const exp=EXP.find(x=>x.id===e.expediente_id),idx=exp?EXP.indexOf(exp):-1;
+  const cliente=exp?titleCase(exp.nombre):(e.titulo?titleCase(e.titulo):'Sin carpeta');
+  const resp=exp?respName(exp):null;
+  const dt=new Date(e.fecha+'T00:00:00'),d=diasAEvento(e.fecha),tp=tipoEvento(e);
+  const hoy=d===0,pasado=d<0,soon=d>=0&&d<=3;
+  const extra=e.descripcion&&e.descripcion.trim()?e.descripcion.trim():'';
+  const detalle=(e.titulo&&!/mediac|audiencia/i.test(e.titulo)&&(!exp||e.titulo.toLowerCase()!==exp.nombre.toLowerCase()))?e.titulo:'';
+  const sub=[resp?'A cargo de '+resp:'Sin responsable',detalle,extra].filter(Boolean).join(' · ');
+  return `<div class="evento ${hoy?'hoy':''} ${pasado?'pasado':''}" ${idx>=0?`data-i="${idx}"`:''}>
+    <div class="ev-when"><div class="d">${dt.getDate()}</div><div class="m">${MES[dt.getMonth()].slice(0,3)}</div>${e.hora?`<div class="h">${e.hora.slice(0,5)}</div>`:''}</div>
+    <div><div class="ev-t"><span class="chip ${tp==='Mediación'?'medi':'aud'}">${tp}</span> ${cliente}</div><div class="ev-sub">${sub}</div></div>
+    <div class="ev-in ${pasado?'past':(soon?'soon':'')}">${labelDias(d)}</div>
+  </div>`;
+}
+function renderEventos(){
+  let arr=[...EVENTOS];const hoy=todayISO();
+  if(filtE==='proximas')arr=arr.filter(e=>e.fecha>=hoy).sort((a,b)=>(a.fecha+(a.hora||'')).localeCompare(b.fecha+(b.hora||'')));
+  else if(filtE==='semana'){const lim=new Date(Date.now()+7*86400000).toISOString().slice(0,10);arr=arr.filter(e=>e.fecha>=hoy&&e.fecha<=lim).sort((a,b)=>(a.fecha+(a.hora||'')).localeCompare(b.fecha+(b.hora||'')));}
+  else if(filtE==='pasadas')arr=arr.filter(e=>e.fecha<hoy);
+  $('#lista-eventos').innerHTML=arr.length?arr.map(eventoRow).join(''):'<div class="empty-s">No hay eventos con este filtro.</div>';
+  const prox=EVENTOS.filter(e=>e.fecha>=hoy).length;
+  const bdg=$('#bdg-aud');if(prox>0){bdg.style.display='flex';bdg.textContent=prox;}else bdg.style.display='none';
 }
 function renderTurnos(){
   if(!TURNOS.length){$('#lista-turnos').innerHTML='<div class="empty-s">No hay turnos próximos. Tocá "Nuevo turno" para agregar.</div>';return;}
@@ -1124,6 +1189,7 @@ function goSection(s){
   document.querySelectorAll('.section').forEach(x=>x.classList.toggle('on',x.id==='s-'+s));
   if(s==='agenda')renderCal();
   if(s==='ubicacion')renderUbic();
+  if(s==='audiencias')renderEventos();
   try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){}
 }
 function irExpFiltro(f){
@@ -1136,6 +1202,7 @@ function resolverKpi(k){
   else if(k==='colgadas')irExpFiltro('colgadas');
   else if(k==='activas')irExpFiltro('all');
   else if(k==='turnos')goSection('turnos');
+  else if(k==='audiencias')goSection('audiencias');
 }
 function doSearch(q){
   const res=$('#gsearch-res');q=(q||'').trim().toLowerCase();
@@ -1164,6 +1231,7 @@ function closeHelp(){$('#help-scrim').classList.remove('on');$('#help-drawer').c
 document.querySelectorAll('.nav-i').forEach(b=>b.onclick=()=>goSection(b.dataset.s));
 document.querySelectorAll('#s-expedientes .fpill').forEach(b=>b.onclick=()=>{document.querySelectorAll('#s-expedientes .fpill').forEach(x=>x.classList.remove('on'));b.classList.add('on');filt=b.dataset.f;renderExp();});
 document.querySelectorAll('#s-ubicacion .fpill').forEach(b=>b.onclick=()=>{document.querySelectorAll('#s-ubicacion .fpill').forEach(x=>x.classList.remove('on'));b.classList.add('on');filtU=b.dataset.fu;renderUbic();});
+document.querySelectorAll('#s-audiencias .fpill').forEach(b=>b.onclick=()=>{document.querySelectorAll('#s-audiencias .fpill').forEach(x=>x.classList.remove('on'));b.classList.add('on');filtE=b.dataset.fe;renderEventos();});
 document.addEventListener('click',e=>{
   const tc=e.target.closest('.t-cancel');if(tc){e.stopPropagation();cancelTurno(tc.dataset.tid);return;}
   const kpi=e.target.closest('[data-kpi]');if(kpi){resolverKpi(kpi.dataset.kpi);return;}
@@ -1172,6 +1240,7 @@ document.addEventListener('click',e=>{
   const chk=e.target.closest('[data-chk]');if(chk){toggleChk(chk.dataset.chk);return;}
   const gd=e.target.closest('[data-gdel]');if(gd){delGasto(gd.dataset.gdel);return;}
   const urow=e.target.closest('.ubi');if(urow){openDrawer(+urow.dataset.i);return;}
+  const erow=e.target.closest('.evento');if(erow&&erow.dataset.i!==undefined){openDrawer(+erow.dataset.i);return;}
   const row=e.target.closest('.exp');if(row){openDrawer(+row.dataset.i);return;}
   const day=e.target.closest('.cal-day[data-iso]');if(day){calSel=day.dataset.iso;renderCal();return;}
   const ck=e.target.closest('[data-ck]');if(ck){const j=+ck.dataset.ck,arr=agDay(calSel);arr[j].done=!arr[j].done;agSetDay(calSel,arr);renderCal();renderInicio();return;}
@@ -1213,6 +1282,7 @@ async function loadLive(){
     fetch(`${SUPABASE_URL}/rest/v1/turnos?select=id,cliente_nombre,cliente_apellido,cliente_telefono,motivo,estado,sede,abogado_asignado_id,disponibilidad_id&estado=eq.confirmado`,{headers:h}),
     fetch(`${SUPABASE_URL}/rest/v1/acuerdos_seguros?select=*&order=creado_at.desc`,{headers:h})
   ]);
+  fetch(`${SUPABASE_URL}/rest/v1/eventos?select=id,expediente_id,titulo,tipo,fecha,hora,descripcion&order=fecha.desc&limit=200`,{headers:h}).then(r=>r.ok?r.json():[]).then(d=>{EVENTOS=d||[];renderEventos();renderInicio();}).catch(()=>{EVENTOS=[];});
   if(!exR.ok)throw new Error("expedientes "+exR.status);
   EXP=(await exR.json()).map(e=>({id:e.id,nombre:e.nombre,etapa:e.etapa,estado:e.estado||"En trámite",resp:e.asignado_a,respLibre:e.responsable_nombre,referido:e.referido,act:(e.actualizado_at||"").slice(0,10),alta:(e.creado_at||"").slice(0,10),dni:e.dni,tel:e.tel,domicilio:e.domicilio,demandado:e.demandado,seguro:e.seguro,fecha:e.fecha,lugar:e.lugar,checklist:e.checklist||{},ubic:e.ubicacion,poder:e.en_poder_de,custMotivo:e.custodia_motivo,custDesde:e.custodia_desde,gastos:Array.isArray(e.gastos)?e.gastos:[]}));
   try{ASEG=asR.ok?await asR.json():[];}catch(e){ASEG=[];}
@@ -1244,7 +1314,7 @@ async function startApp(){
     return;
   }
   applyMe();await loadLive();
-  renderInicio();renderExp();renderUbic();renderTurnos();renderAseg();renderPagos();renderCal();
+  renderInicio();renderExp();renderUbic();renderEventos();renderTurnos();renderAseg();renderPagos();renderCal();
   $('#login').style.display='none';$('#app').classList.add('on');
 }
 async function boot(){
