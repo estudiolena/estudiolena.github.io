@@ -63,7 +63,8 @@ nav.side{display:flex;flex-direction:column;gap:2px;padding:0 .8rem;flex:1;overf
 .ext:hover{color:var(--gold2)}
 
 main{flex:1;min-width:0;min-height:100vh;position:relative}
-.topband{position:relative;height:150px;overflow:hidden;border-bottom:1px solid var(--border);display:flex;align-items:flex-end}
+.topband{position:relative;height:150px;overflow:visible;border-bottom:1px solid var(--border);display:flex;align-items:flex-end}
+.topband>.ph,.topband>.gr,.topband>.grid{overflow:hidden}
 .topband .ph{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1920&q=80') center 30%/cover no-repeat;filter:brightness(.2) saturate(.4) contrast(1.05)}
 .topband .gr{position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,3,8,.95) 0%,rgba(11,15,40,.55) 55%,rgba(2,3,8,.4) 100%)}
 .topband .grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:70px 70px}
