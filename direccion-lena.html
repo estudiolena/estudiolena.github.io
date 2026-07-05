@@ -144,6 +144,14 @@ main{flex:1;min-width:0;min-height:100vh;position:relative}
 .kpi .l{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,241,234,.5);margin-top:.5rem}
 .kpi.alert .v{color:#e8826a}
 .kpi.alert{background:linear-gradient(135deg,rgba(224,106,72,.08),var(--bg))}
+.kpi.go{cursor:pointer;position:relative;transition:background .18s}
+.kpi.go:hover{background:linear-gradient(135deg,rgba(201,168,76,.1),var(--bg))}
+.kpi.alert.go:hover{background:linear-gradient(135deg,rgba(224,106,72,.16),var(--bg))}
+.kpi .kgo{display:block;margin-top:.75rem;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold2);opacity:.7;transition:all .18s}
+.kpi.go:hover .kgo{opacity:1;color:var(--gold3)}
+.titem.go{cursor:pointer;transition:background .15s}
+.titem.go:hover{background:rgba(201,168,76,.07)}
+.titem.go .tk{color:var(--gold2)}
 
 .block-h{display:flex;align-items:baseline;gap:1rem;margin:2.2rem 0 1.1rem}
 .block-h .t{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400}
@@ -788,10 +796,10 @@ function renderFuentes(){
 function renderInicio(){
   const total=EXP.length,sin=EXP.filter(x=>!respName(x)).length,frias=EXP.filter(x=>dias(x.act)>T_COLD).length;
   $('#kpis').innerHTML=`
-    <div class="kpi"><div class="v">${total}</div><div class="l">Carpetas activas</div></div>
-    <div class="kpi alert"><div class="v">${sin}</div><div class="l">Sin responsable</div></div>
-    <div class="kpi alert"><div class="v">${frias}</div><div class="l">Colgadas · +30 días</div></div>
-    <div class="kpi"><div class="v">${TURNOS.filter(t=>t.fecha===todayISO()).length}</div><div class="l">Turnos hoy</div></div>`;
+    <div class="kpi go" data-kpi="activas"><div class="v">${total}</div><div class="l">Carpetas activas</div><span class="kgo">Ver todas ›</span></div>
+    <div class="kpi alert go" data-kpi="sin"><div class="v">${sin}</div><div class="l">Sin responsable</div><span class="kgo">${sin>0?'Asignar ahora ›':'Ver ›'}</span></div>
+    <div class="kpi alert go" data-kpi="colgadas"><div class="v">${frias}</div><div class="l">Colgadas · +30 días</div><span class="kgo">${frias>0?'Revisar ›':'Ver ›'}</span></div>
+    <div class="kpi go" data-kpi="turnos"><div class="v">${TURNOS.filter(t=>t.fecha===todayISO()).length}</div><div class="l">Turnos hoy</div><span class="kgo">Ver agenda ›</span></div>`;
   const iso=todayISO();
   $('#today-date').textContent=fechaLarga(new Date());
   const tasks=agDay(iso);
@@ -799,8 +807,8 @@ function renderInicio(){
   const turHoy=TURNOS.filter(t=>t.fecha===iso);
   $('#today-turnos').innerHTML=turHoy.length?turHoy.map(t=>`<div class="titem gold">${titleCase((t.cliente_nombre||'')+' '+(t.cliente_apellido||''))}<span class="tk">${(t.hora||'').slice(0,5)} · ${t.sede?t.sede.toUpperCase():''}</span></div>`).join(''):'<div class="tempty">Sin turnos para hoy.</div>';
   const al=[];
-  if(sin>0)al.push(`<div class="titem warn">${sin} carpeta${sin>1?'s':''} sin responsable<span class="tk">asignar</span></div>`);
-  if(frias>0)al.push(`<div class="titem warn">${frias} carpeta${frias>1?'s':''} colgada${frias>1?'s':''} +30 días<span class="tk">revisar</span></div>`);
+  if(sin>0)al.push(`<div class="titem warn go" data-kpi="sin">${sin} carpeta${sin>1?'s':''} sin responsable<span class="tk">asignar ›</span></div>`);
+  if(frias>0)al.push(`<div class="titem warn go" data-kpi="colgadas">${frias} carpeta${frias>1?'s':''} colgada${frias>1?'s':''} +30 días<span class="tk">revisar ›</span></div>`);
   $('#today-alertas').innerHTML=al.length?al.join(''):'<div class="tempty">Todo al día.</div>';
   const aten=EXP.map((x,i)=>({x,i})).filter(o=>!respName(o.x)||dias(o.x.act)>T_COLD).sort((a,b)=>dias(b.x.act)-dias(a.x.act));
   $('#atencion').innerHTML=aten.length?aten.map(o=>expRow(o.x,o.i)).join(''):'<div class="empty-s">Todo al día.</div>';
@@ -1118,6 +1126,17 @@ function goSection(s){
   if(s==='ubicacion')renderUbic();
   try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){}
 }
+function irExpFiltro(f){
+  filt=f;
+  document.querySelectorAll('#s-expedientes .fpill').forEach(x=>x.classList.toggle('on',x.dataset.f===f));
+  renderExp();goSection('expedientes');
+}
+function resolverKpi(k){
+  if(k==='sin')irExpFiltro('sin');
+  else if(k==='colgadas')irExpFiltro('colgadas');
+  else if(k==='activas')irExpFiltro('all');
+  else if(k==='turnos')goSection('turnos');
+}
 function doSearch(q){
   const res=$('#gsearch-res');q=(q||'').trim().toLowerCase();
   if(!q){res.classList.remove('on');res.innerHTML='';return;}
@@ -1147,6 +1166,7 @@ document.querySelectorAll('#s-expedientes .fpill').forEach(b=>b.onclick=()=>{doc
 document.querySelectorAll('#s-ubicacion .fpill').forEach(b=>b.onclick=()=>{document.querySelectorAll('#s-ubicacion .fpill').forEach(x=>x.classList.remove('on'));b.classList.add('on');filtU=b.dataset.fu;renderUbic();});
 document.addEventListener('click',e=>{
   const tc=e.target.closest('.t-cancel');if(tc){e.stopPropagation();cancelTurno(tc.dataset.tid);return;}
+  const kpi=e.target.closest('[data-kpi]');if(kpi){resolverKpi(kpi.dataset.kpi);return;}
   const gopen=e.target.closest('[data-open]');if(gopen){openDrawer(+gopen.dataset.open);$('#gsearch').value="";cerrarBuscador();return;}
   const gfeat=e.target.closest('[data-feat]');if(gfeat){const sec=gfeat.dataset.feat,draw=gfeat.dataset.fdraw;goSection(sec);$('#gsearch').value="";cerrarBuscador();closeHelp();if(draw)toast(sec==='inicio'?'Está en Inicio, botón "Resumen a Telegram"':'Se usa dentro de cada carpeta: tocá un expediente');return;}
   const chk=e.target.closest('[data-chk]');if(chk){toggleChk(chk.dataset.chk);return;}
