@@ -686,6 +686,15 @@ const PERFILES=[
   {id:"24c55596-f837-4f0e-978d-79c3b09a7f10",nombre:"Santiago"},
   {id:"e5e3537b-721a-4666-8308-a17e714481a0",nombre:"Viviana"}
 ];
+// ===== QUIÉN PUEDE ENTRAR AL PANEL DE DIRECCIÓN =====
+// Solo estas personas pueden entrar. Para sumar a alguien, agregá su nombre
+// TAL CUAL figura en el sistema, entre comillas y con una coma al final.
+const ACCESO=[
+  "Benjamín Bonapelch",
+  "Andrea Galvalisi",
+  "Pablo Bonapelch"
+];
+const tieneAcceso=()=>ACCESO.some(n=>n.toLowerCase()===(ME.nombre||"").trim().toLowerCase());
 const USUARIOS=[
   {id:"62587eb7-2e83-40eb-b5e0-bb69b710a7b9",nombre:"Andrea Galvalisi"},
   {id:"45ee3828-5fde-4726-882b-b9890d6bf366",nombre:"Benjamín"},
@@ -1206,7 +1215,15 @@ function applyMe(){
 }
 async function startApp(){
   $('#hoy').textContent=fechaLarga(new Date());
-  await fetchMe();applyMe();await loadLive();
+  await fetchMe();
+  if(!tieneAcceso()){
+    localStorage.removeItem("sb_session");SESSION=null;
+    $('#login').style.display='flex';$('#app').classList.remove('on');
+    $('#l-err').textContent="Esta cuenta no tiene acceso al panel de dirección.";
+    $('#l-btn').disabled=false;$('#l-btn').textContent="Ingresar";$('#l-pass').value="";
+    return;
+  }
+  applyMe();await loadLive();
   renderInicio();renderExp();renderUbic();renderTurnos();renderAseg();renderPagos();renderCal();
   $('#login').style.display='none';$('#app').classList.add('on');
 }
